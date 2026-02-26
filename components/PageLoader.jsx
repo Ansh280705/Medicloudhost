@@ -2,19 +2,27 @@
 import { useState, useEffect } from "react";
 import { HashLoader } from "react-spinners";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 export default function PageLoader({ children, user }) {
+  const pathname = usePathname();
   const [phase, setPhase] = useState("loading"); // "loading" | "greeting" | "finished"
 
   useEffect(() => {
+    // Check if greeting was already shown in this session
+    const greetingShown = sessionStorage.getItem("greetingShown");
+
     // 1. Initial Loading Animation (HashLoader)
+    const duration = greetingShown ? 1500 : 4500; // Shorter if already shown
+
     const loaderTimer = setTimeout(() => {
-      if (user) {
+      if (user && !greetingShown) {
         setPhase("greeting");
+        sessionStorage.setItem("greetingShown", "true");
       } else {
         setPhase("finished");
       }
-    }, 4500);
+    }, duration);
 
     return () => clearTimeout(loaderTimer);
   }, [user]);

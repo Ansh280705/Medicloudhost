@@ -9,6 +9,7 @@ import { ArrowLeft, Calendar, Clock, CreditCard, Loader2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import useFetch from '@/hooks/use-fetch';
+import { useRouter } from 'next/navigation';
 
 const AppointmentForm = ({ doctorId, slot, onBack, onComplete }) => {
   const [description, setDescription] = useState("");
@@ -16,8 +17,9 @@ const AppointmentForm = ({ doctorId, slot, onBack, onComplete }) => {
   const [patientPhone, setPatientPhone] = useState("");
   const [patientAge, setPatientAge] = useState("");
   const [patientGender, setPatientGender] = useState("");
+  const router = useRouter();
 
-  const { loading, data, fn: submitBooking } = useFetch(bookAppointment);
+  const { loading, data, error, fn: submitBooking } = useFetch(bookAppointment);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +47,16 @@ const AppointmentForm = ({ doctorId, slot, onBack, onComplete }) => {
       toast.success("Appointment booked successfully!");
       onComplete();
     }
-  }, [data]);
+  }, [data, onComplete]);
+
+  useEffect(() => {
+    if (error && error.message === "Insufficient credits to book an appointment") {
+      toast.error("You don't have enough credits. Redirecting to credits page...");
+      setTimeout(() => {
+        router.push("/pricing");
+      }, 1500);
+    }
+  }, [error, router]);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
