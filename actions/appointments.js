@@ -1,6 +1,6 @@
 
 "use server"
-import { VerificationStatus } from "@/lib/generated/prisma/enums";
+import { VerificationStatus } from "@/lib/generated/prisma";
 import { db } from "@/lib/prisma";
 import { deductCreditsForAppointment } from "./credit";
 import { revalidatePath } from "next/cache";

@@ -16,12 +16,13 @@ import { PaymentRequests } from "./components/payment-requests";
 import { getLabs } from "@/actions/labs";
 import { getNews } from "@/actions/news";
 import { SOSAlertsPanel } from "./components/sos-alerts-panel";
-
+import { ClinicsManager } from "./components/clinics-manager";
+import { getAllClinics } from "@/actions/clinics";
 import { TabAnimatedContent } from "./components/tab-animated-content";
 import { NewsManager } from "./components/news-manager";
 
 export default async function AdminPage() {
-  const [pendingDoctorsData, verifiedDoctorsData, pendingPayoutsData, blogsData, labsData, paymentData, newsData, sosData] =
+  const [pendingDoctorsData, verifiedDoctorsData, pendingPayoutsData, blogsData, labsData, paymentData, newsData, sosData, clinicsData] =
     await Promise.all([
       getPendingDoctors(),
       getVerifiedDoctors(),
@@ -31,6 +32,7 @@ export default async function AdminPage() {
       getPaymentRequests(),
       getNews(),
       getAllSOSAlerts(),
+      getAllClinics(),
     ]);
 
   return (
@@ -83,6 +85,12 @@ export default async function AdminPage() {
       <TabsContent value="sos" className="border-none p-0">
         <TabAnimatedContent>
           <SOSAlertsPanel alerts={sosData.alerts || []} />
+        </TabAnimatedContent>
+      </TabsContent>
+
+      <TabsContent value="clinics" className="border-none p-0">
+        <TabAnimatedContent>
+          <ClinicsManager clinics={clinicsData.clinics || []} />
         </TabAnimatedContent>
       </TabsContent>
     </>

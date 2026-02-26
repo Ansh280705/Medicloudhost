@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AlertCircle, Users, CreditCard, BookOpen, FlaskConical, Wallet, Siren } from "lucide-react";
+import { AlertCircle, Users, CreditCard, BookOpen, FlaskConical, Wallet, Siren, Building2 } from "lucide-react";
 
 export function AdminTabsSection({ children }) {
   const searchParams = useSearchParams();
@@ -26,6 +26,7 @@ export function AdminTabsSection({ children }) {
     { value: "blogs", label: "Blogs", icon: BookOpen },
     { value: "labs", label: "Labs", icon: FlaskConical },
     { value: "sos", label: "SOS Alerts", icon: Siren },
+    { value: "clinics", label: "Clinics", icon: Building2 },
   ];
 
   return (

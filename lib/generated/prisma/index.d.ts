@@ -73,6 +73,11 @@ export type PaymentRequest = $Result.DefaultSelection<Prisma.$PaymentRequestPayl
  * 
  */
 export type News = $Result.DefaultSelection<Prisma.$NewsPayload>
+/**
+ * Model OfflineClinic
+ * 
+ */
+export type OfflineClinic = $Result.DefaultSelection<Prisma.$OfflineClinicPayload>
 
 /**
  * Enums
@@ -418,6 +423,16 @@ export class PrismaClient<
     * ```
     */
   get news(): Prisma.NewsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.offlineClinic`: Exposes CRUD operations for the **OfflineClinic** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OfflineClinics
+    * const offlineClinics = await prisma.offlineClinic.findMany()
+    * ```
+    */
+  get offlineClinic(): Prisma.OfflineClinicDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -863,7 +878,8 @@ export namespace Prisma {
     Lab: 'Lab',
     Prescription: 'Prescription',
     PaymentRequest: 'PaymentRequest',
-    News: 'News'
+    News: 'News',
+    OfflineClinic: 'OfflineClinic'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -879,7 +895,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "emergencyAlert" | "availability" | "appointment" | "creditTransaction" | "payout" | "blog" | "category" | "lab" | "prescription" | "paymentRequest" | "news"
+      modelProps: "user" | "emergencyAlert" | "availability" | "appointment" | "creditTransaction" | "payout" | "blog" | "category" | "lab" | "prescription" | "paymentRequest" | "news" | "offlineClinic"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1771,6 +1787,80 @@ export namespace Prisma {
           }
         }
       }
+      OfflineClinic: {
+        payload: Prisma.$OfflineClinicPayload<ExtArgs>
+        fields: Prisma.OfflineClinicFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OfflineClinicFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfflineClinicPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OfflineClinicFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfflineClinicPayload>
+          }
+          findFirst: {
+            args: Prisma.OfflineClinicFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfflineClinicPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OfflineClinicFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfflineClinicPayload>
+          }
+          findMany: {
+            args: Prisma.OfflineClinicFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfflineClinicPayload>[]
+          }
+          create: {
+            args: Prisma.OfflineClinicCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfflineClinicPayload>
+          }
+          createMany: {
+            args: Prisma.OfflineClinicCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OfflineClinicCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfflineClinicPayload>[]
+          }
+          delete: {
+            args: Prisma.OfflineClinicDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfflineClinicPayload>
+          }
+          update: {
+            args: Prisma.OfflineClinicUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfflineClinicPayload>
+          }
+          deleteMany: {
+            args: Prisma.OfflineClinicDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OfflineClinicUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.OfflineClinicUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfflineClinicPayload>[]
+          }
+          upsert: {
+            args: Prisma.OfflineClinicUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OfflineClinicPayload>
+          }
+          aggregate: {
+            args: Prisma.OfflineClinicAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOfflineClinic>
+          }
+          groupBy: {
+            args: Prisma.OfflineClinicGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OfflineClinicGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OfflineClinicCountArgs<ExtArgs>
+            result: $Utils.Optional<OfflineClinicCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1891,6 +1981,7 @@ export namespace Prisma {
     prescription?: PrescriptionOmit
     paymentRequest?: PaymentRequestOmit
     news?: NewsOmit
+    offlineClinic?: OfflineClinicOmit
   }
 
   /* Types for Logging */
@@ -15997,6 +16088,1182 @@ export namespace Prisma {
 
 
   /**
+   * Model OfflineClinic
+   */
+
+  export type AggregateOfflineClinic = {
+    _count: OfflineClinicCountAggregateOutputType | null
+    _avg: OfflineClinicAvgAggregateOutputType | null
+    _sum: OfflineClinicSumAggregateOutputType | null
+    _min: OfflineClinicMinAggregateOutputType | null
+    _max: OfflineClinicMaxAggregateOutputType | null
+  }
+
+  export type OfflineClinicAvgAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type OfflineClinicSumAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type OfflineClinicMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    doctorName: string | null
+    specialty: string | null
+    phone: string | null
+    email: string | null
+    address: string | null
+    city: string | null
+    state: string | null
+    pincode: string | null
+    latitude: number | null
+    longitude: number | null
+    timing: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OfflineClinicMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    doctorName: string | null
+    specialty: string | null
+    phone: string | null
+    email: string | null
+    address: string | null
+    city: string | null
+    state: string | null
+    pincode: string | null
+    latitude: number | null
+    longitude: number | null
+    timing: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type OfflineClinicCountAggregateOutputType = {
+    id: number
+    name: number
+    doctorName: number
+    specialty: number
+    phone: number
+    email: number
+    address: number
+    city: number
+    state: number
+    pincode: number
+    latitude: number
+    longitude: number
+    timing: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OfflineClinicAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
+  export type OfflineClinicSumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
+  export type OfflineClinicMinAggregateInputType = {
+    id?: true
+    name?: true
+    doctorName?: true
+    specialty?: true
+    phone?: true
+    email?: true
+    address?: true
+    city?: true
+    state?: true
+    pincode?: true
+    latitude?: true
+    longitude?: true
+    timing?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OfflineClinicMaxAggregateInputType = {
+    id?: true
+    name?: true
+    doctorName?: true
+    specialty?: true
+    phone?: true
+    email?: true
+    address?: true
+    city?: true
+    state?: true
+    pincode?: true
+    latitude?: true
+    longitude?: true
+    timing?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type OfflineClinicCountAggregateInputType = {
+    id?: true
+    name?: true
+    doctorName?: true
+    specialty?: true
+    phone?: true
+    email?: true
+    address?: true
+    city?: true
+    state?: true
+    pincode?: true
+    latitude?: true
+    longitude?: true
+    timing?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OfflineClinicAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OfflineClinic to aggregate.
+     */
+    where?: OfflineClinicWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfflineClinics to fetch.
+     */
+    orderBy?: OfflineClinicOrderByWithRelationInput | OfflineClinicOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OfflineClinicWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfflineClinics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfflineClinics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OfflineClinics
+    **/
+    _count?: true | OfflineClinicCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OfflineClinicAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OfflineClinicSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OfflineClinicMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OfflineClinicMaxAggregateInputType
+  }
+
+  export type GetOfflineClinicAggregateType<T extends OfflineClinicAggregateArgs> = {
+        [P in keyof T & keyof AggregateOfflineClinic]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOfflineClinic[P]>
+      : GetScalarType<T[P], AggregateOfflineClinic[P]>
+  }
+
+
+
+
+  export type OfflineClinicGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OfflineClinicWhereInput
+    orderBy?: OfflineClinicOrderByWithAggregationInput | OfflineClinicOrderByWithAggregationInput[]
+    by: OfflineClinicScalarFieldEnum[] | OfflineClinicScalarFieldEnum
+    having?: OfflineClinicScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OfflineClinicCountAggregateInputType | true
+    _avg?: OfflineClinicAvgAggregateInputType
+    _sum?: OfflineClinicSumAggregateInputType
+    _min?: OfflineClinicMinAggregateInputType
+    _max?: OfflineClinicMaxAggregateInputType
+  }
+
+  export type OfflineClinicGroupByOutputType = {
+    id: string
+    name: string
+    doctorName: string
+    specialty: string
+    phone: string
+    email: string | null
+    address: string
+    city: string
+    state: string
+    pincode: string
+    latitude: number
+    longitude: number
+    timing: string
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: OfflineClinicCountAggregateOutputType | null
+    _avg: OfflineClinicAvgAggregateOutputType | null
+    _sum: OfflineClinicSumAggregateOutputType | null
+    _min: OfflineClinicMinAggregateOutputType | null
+    _max: OfflineClinicMaxAggregateOutputType | null
+  }
+
+  type GetOfflineClinicGroupByPayload<T extends OfflineClinicGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OfflineClinicGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OfflineClinicGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OfflineClinicGroupByOutputType[P]>
+            : GetScalarType<T[P], OfflineClinicGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OfflineClinicSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    doctorName?: boolean
+    specialty?: boolean
+    phone?: boolean
+    email?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    pincode?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    timing?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["offlineClinic"]>
+
+  export type OfflineClinicSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    doctorName?: boolean
+    specialty?: boolean
+    phone?: boolean
+    email?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    pincode?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    timing?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["offlineClinic"]>
+
+  export type OfflineClinicSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    doctorName?: boolean
+    specialty?: boolean
+    phone?: boolean
+    email?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    pincode?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    timing?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["offlineClinic"]>
+
+  export type OfflineClinicSelectScalar = {
+    id?: boolean
+    name?: boolean
+    doctorName?: boolean
+    specialty?: boolean
+    phone?: boolean
+    email?: boolean
+    address?: boolean
+    city?: boolean
+    state?: boolean
+    pincode?: boolean
+    latitude?: boolean
+    longitude?: boolean
+    timing?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type OfflineClinicOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "doctorName" | "specialty" | "phone" | "email" | "address" | "city" | "state" | "pincode" | "latitude" | "longitude" | "timing" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["offlineClinic"]>
+
+  export type $OfflineClinicPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OfflineClinic"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      doctorName: string
+      specialty: string
+      phone: string
+      email: string | null
+      address: string
+      city: string
+      state: string
+      pincode: string
+      latitude: number
+      longitude: number
+      timing: string
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["offlineClinic"]>
+    composites: {}
+  }
+
+  type OfflineClinicGetPayload<S extends boolean | null | undefined | OfflineClinicDefaultArgs> = $Result.GetResult<Prisma.$OfflineClinicPayload, S>
+
+  type OfflineClinicCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<OfflineClinicFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: OfflineClinicCountAggregateInputType | true
+    }
+
+  export interface OfflineClinicDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OfflineClinic'], meta: { name: 'OfflineClinic' } }
+    /**
+     * Find zero or one OfflineClinic that matches the filter.
+     * @param {OfflineClinicFindUniqueArgs} args - Arguments to find a OfflineClinic
+     * @example
+     * // Get one OfflineClinic
+     * const offlineClinic = await prisma.offlineClinic.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OfflineClinicFindUniqueArgs>(args: SelectSubset<T, OfflineClinicFindUniqueArgs<ExtArgs>>): Prisma__OfflineClinicClient<$Result.GetResult<Prisma.$OfflineClinicPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one OfflineClinic that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {OfflineClinicFindUniqueOrThrowArgs} args - Arguments to find a OfflineClinic
+     * @example
+     * // Get one OfflineClinic
+     * const offlineClinic = await prisma.offlineClinic.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OfflineClinicFindUniqueOrThrowArgs>(args: SelectSubset<T, OfflineClinicFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OfflineClinicClient<$Result.GetResult<Prisma.$OfflineClinicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OfflineClinic that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfflineClinicFindFirstArgs} args - Arguments to find a OfflineClinic
+     * @example
+     * // Get one OfflineClinic
+     * const offlineClinic = await prisma.offlineClinic.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OfflineClinicFindFirstArgs>(args?: SelectSubset<T, OfflineClinicFindFirstArgs<ExtArgs>>): Prisma__OfflineClinicClient<$Result.GetResult<Prisma.$OfflineClinicPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first OfflineClinic that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfflineClinicFindFirstOrThrowArgs} args - Arguments to find a OfflineClinic
+     * @example
+     * // Get one OfflineClinic
+     * const offlineClinic = await prisma.offlineClinic.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OfflineClinicFindFirstOrThrowArgs>(args?: SelectSubset<T, OfflineClinicFindFirstOrThrowArgs<ExtArgs>>): Prisma__OfflineClinicClient<$Result.GetResult<Prisma.$OfflineClinicPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more OfflineClinics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfflineClinicFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OfflineClinics
+     * const offlineClinics = await prisma.offlineClinic.findMany()
+     * 
+     * // Get first 10 OfflineClinics
+     * const offlineClinics = await prisma.offlineClinic.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const offlineClinicWithIdOnly = await prisma.offlineClinic.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OfflineClinicFindManyArgs>(args?: SelectSubset<T, OfflineClinicFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfflineClinicPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a OfflineClinic.
+     * @param {OfflineClinicCreateArgs} args - Arguments to create a OfflineClinic.
+     * @example
+     * // Create one OfflineClinic
+     * const OfflineClinic = await prisma.offlineClinic.create({
+     *   data: {
+     *     // ... data to create a OfflineClinic
+     *   }
+     * })
+     * 
+     */
+    create<T extends OfflineClinicCreateArgs>(args: SelectSubset<T, OfflineClinicCreateArgs<ExtArgs>>): Prisma__OfflineClinicClient<$Result.GetResult<Prisma.$OfflineClinicPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many OfflineClinics.
+     * @param {OfflineClinicCreateManyArgs} args - Arguments to create many OfflineClinics.
+     * @example
+     * // Create many OfflineClinics
+     * const offlineClinic = await prisma.offlineClinic.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OfflineClinicCreateManyArgs>(args?: SelectSubset<T, OfflineClinicCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OfflineClinics and returns the data saved in the database.
+     * @param {OfflineClinicCreateManyAndReturnArgs} args - Arguments to create many OfflineClinics.
+     * @example
+     * // Create many OfflineClinics
+     * const offlineClinic = await prisma.offlineClinic.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OfflineClinics and only return the `id`
+     * const offlineClinicWithIdOnly = await prisma.offlineClinic.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OfflineClinicCreateManyAndReturnArgs>(args?: SelectSubset<T, OfflineClinicCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfflineClinicPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a OfflineClinic.
+     * @param {OfflineClinicDeleteArgs} args - Arguments to delete one OfflineClinic.
+     * @example
+     * // Delete one OfflineClinic
+     * const OfflineClinic = await prisma.offlineClinic.delete({
+     *   where: {
+     *     // ... filter to delete one OfflineClinic
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OfflineClinicDeleteArgs>(args: SelectSubset<T, OfflineClinicDeleteArgs<ExtArgs>>): Prisma__OfflineClinicClient<$Result.GetResult<Prisma.$OfflineClinicPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one OfflineClinic.
+     * @param {OfflineClinicUpdateArgs} args - Arguments to update one OfflineClinic.
+     * @example
+     * // Update one OfflineClinic
+     * const offlineClinic = await prisma.offlineClinic.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OfflineClinicUpdateArgs>(args: SelectSubset<T, OfflineClinicUpdateArgs<ExtArgs>>): Prisma__OfflineClinicClient<$Result.GetResult<Prisma.$OfflineClinicPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more OfflineClinics.
+     * @param {OfflineClinicDeleteManyArgs} args - Arguments to filter OfflineClinics to delete.
+     * @example
+     * // Delete a few OfflineClinics
+     * const { count } = await prisma.offlineClinic.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OfflineClinicDeleteManyArgs>(args?: SelectSubset<T, OfflineClinicDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OfflineClinics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfflineClinicUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OfflineClinics
+     * const offlineClinic = await prisma.offlineClinic.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OfflineClinicUpdateManyArgs>(args: SelectSubset<T, OfflineClinicUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OfflineClinics and returns the data updated in the database.
+     * @param {OfflineClinicUpdateManyAndReturnArgs} args - Arguments to update many OfflineClinics.
+     * @example
+     * // Update many OfflineClinics
+     * const offlineClinic = await prisma.offlineClinic.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more OfflineClinics and only return the `id`
+     * const offlineClinicWithIdOnly = await prisma.offlineClinic.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends OfflineClinicUpdateManyAndReturnArgs>(args: SelectSubset<T, OfflineClinicUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OfflineClinicPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one OfflineClinic.
+     * @param {OfflineClinicUpsertArgs} args - Arguments to update or create a OfflineClinic.
+     * @example
+     * // Update or create a OfflineClinic
+     * const offlineClinic = await prisma.offlineClinic.upsert({
+     *   create: {
+     *     // ... data to create a OfflineClinic
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OfflineClinic we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OfflineClinicUpsertArgs>(args: SelectSubset<T, OfflineClinicUpsertArgs<ExtArgs>>): Prisma__OfflineClinicClient<$Result.GetResult<Prisma.$OfflineClinicPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of OfflineClinics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfflineClinicCountArgs} args - Arguments to filter OfflineClinics to count.
+     * @example
+     * // Count the number of OfflineClinics
+     * const count = await prisma.offlineClinic.count({
+     *   where: {
+     *     // ... the filter for the OfflineClinics we want to count
+     *   }
+     * })
+    **/
+    count<T extends OfflineClinicCountArgs>(
+      args?: Subset<T, OfflineClinicCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OfflineClinicCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OfflineClinic.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfflineClinicAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OfflineClinicAggregateArgs>(args: Subset<T, OfflineClinicAggregateArgs>): Prisma.PrismaPromise<GetOfflineClinicAggregateType<T>>
+
+    /**
+     * Group by OfflineClinic.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OfflineClinicGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OfflineClinicGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OfflineClinicGroupByArgs['orderBy'] }
+        : { orderBy?: OfflineClinicGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OfflineClinicGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOfflineClinicGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OfflineClinic model
+   */
+  readonly fields: OfflineClinicFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OfflineClinic.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OfflineClinicClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OfflineClinic model
+   */
+  interface OfflineClinicFieldRefs {
+    readonly id: FieldRef<"OfflineClinic", 'String'>
+    readonly name: FieldRef<"OfflineClinic", 'String'>
+    readonly doctorName: FieldRef<"OfflineClinic", 'String'>
+    readonly specialty: FieldRef<"OfflineClinic", 'String'>
+    readonly phone: FieldRef<"OfflineClinic", 'String'>
+    readonly email: FieldRef<"OfflineClinic", 'String'>
+    readonly address: FieldRef<"OfflineClinic", 'String'>
+    readonly city: FieldRef<"OfflineClinic", 'String'>
+    readonly state: FieldRef<"OfflineClinic", 'String'>
+    readonly pincode: FieldRef<"OfflineClinic", 'String'>
+    readonly latitude: FieldRef<"OfflineClinic", 'Float'>
+    readonly longitude: FieldRef<"OfflineClinic", 'Float'>
+    readonly timing: FieldRef<"OfflineClinic", 'String'>
+    readonly isActive: FieldRef<"OfflineClinic", 'Boolean'>
+    readonly createdAt: FieldRef<"OfflineClinic", 'DateTime'>
+    readonly updatedAt: FieldRef<"OfflineClinic", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OfflineClinic findUnique
+   */
+  export type OfflineClinicFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+    /**
+     * Filter, which OfflineClinic to fetch.
+     */
+    where: OfflineClinicWhereUniqueInput
+  }
+
+  /**
+   * OfflineClinic findUniqueOrThrow
+   */
+  export type OfflineClinicFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+    /**
+     * Filter, which OfflineClinic to fetch.
+     */
+    where: OfflineClinicWhereUniqueInput
+  }
+
+  /**
+   * OfflineClinic findFirst
+   */
+  export type OfflineClinicFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+    /**
+     * Filter, which OfflineClinic to fetch.
+     */
+    where?: OfflineClinicWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfflineClinics to fetch.
+     */
+    orderBy?: OfflineClinicOrderByWithRelationInput | OfflineClinicOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OfflineClinics.
+     */
+    cursor?: OfflineClinicWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfflineClinics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfflineClinics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OfflineClinics.
+     */
+    distinct?: OfflineClinicScalarFieldEnum | OfflineClinicScalarFieldEnum[]
+  }
+
+  /**
+   * OfflineClinic findFirstOrThrow
+   */
+  export type OfflineClinicFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+    /**
+     * Filter, which OfflineClinic to fetch.
+     */
+    where?: OfflineClinicWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfflineClinics to fetch.
+     */
+    orderBy?: OfflineClinicOrderByWithRelationInput | OfflineClinicOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OfflineClinics.
+     */
+    cursor?: OfflineClinicWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfflineClinics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfflineClinics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OfflineClinics.
+     */
+    distinct?: OfflineClinicScalarFieldEnum | OfflineClinicScalarFieldEnum[]
+  }
+
+  /**
+   * OfflineClinic findMany
+   */
+  export type OfflineClinicFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+    /**
+     * Filter, which OfflineClinics to fetch.
+     */
+    where?: OfflineClinicWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OfflineClinics to fetch.
+     */
+    orderBy?: OfflineClinicOrderByWithRelationInput | OfflineClinicOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OfflineClinics.
+     */
+    cursor?: OfflineClinicWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OfflineClinics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OfflineClinics.
+     */
+    skip?: number
+    distinct?: OfflineClinicScalarFieldEnum | OfflineClinicScalarFieldEnum[]
+  }
+
+  /**
+   * OfflineClinic create
+   */
+  export type OfflineClinicCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+    /**
+     * The data needed to create a OfflineClinic.
+     */
+    data: XOR<OfflineClinicCreateInput, OfflineClinicUncheckedCreateInput>
+  }
+
+  /**
+   * OfflineClinic createMany
+   */
+  export type OfflineClinicCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OfflineClinics.
+     */
+    data: OfflineClinicCreateManyInput | OfflineClinicCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OfflineClinic createManyAndReturn
+   */
+  export type OfflineClinicCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+    /**
+     * The data used to create many OfflineClinics.
+     */
+    data: OfflineClinicCreateManyInput | OfflineClinicCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OfflineClinic update
+   */
+  export type OfflineClinicUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+    /**
+     * The data needed to update a OfflineClinic.
+     */
+    data: XOR<OfflineClinicUpdateInput, OfflineClinicUncheckedUpdateInput>
+    /**
+     * Choose, which OfflineClinic to update.
+     */
+    where: OfflineClinicWhereUniqueInput
+  }
+
+  /**
+   * OfflineClinic updateMany
+   */
+  export type OfflineClinicUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OfflineClinics.
+     */
+    data: XOR<OfflineClinicUpdateManyMutationInput, OfflineClinicUncheckedUpdateManyInput>
+    /**
+     * Filter which OfflineClinics to update
+     */
+    where?: OfflineClinicWhereInput
+    /**
+     * Limit how many OfflineClinics to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OfflineClinic updateManyAndReturn
+   */
+  export type OfflineClinicUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+    /**
+     * The data used to update OfflineClinics.
+     */
+    data: XOR<OfflineClinicUpdateManyMutationInput, OfflineClinicUncheckedUpdateManyInput>
+    /**
+     * Filter which OfflineClinics to update
+     */
+    where?: OfflineClinicWhereInput
+    /**
+     * Limit how many OfflineClinics to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * OfflineClinic upsert
+   */
+  export type OfflineClinicUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+    /**
+     * The filter to search for the OfflineClinic to update in case it exists.
+     */
+    where: OfflineClinicWhereUniqueInput
+    /**
+     * In case the OfflineClinic found by the `where` argument doesn't exist, create a new OfflineClinic with this data.
+     */
+    create: XOR<OfflineClinicCreateInput, OfflineClinicUncheckedCreateInput>
+    /**
+     * In case the OfflineClinic was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OfflineClinicUpdateInput, OfflineClinicUncheckedUpdateInput>
+  }
+
+  /**
+   * OfflineClinic delete
+   */
+  export type OfflineClinicDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+    /**
+     * Filter which OfflineClinic to delete.
+     */
+    where: OfflineClinicWhereUniqueInput
+  }
+
+  /**
+   * OfflineClinic deleteMany
+   */
+  export type OfflineClinicDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OfflineClinics to delete
+     */
+    where?: OfflineClinicWhereInput
+    /**
+     * Limit how many OfflineClinics to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * OfflineClinic without action
+   */
+  export type OfflineClinicDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OfflineClinic
+     */
+    select?: OfflineClinicSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OfflineClinic
+     */
+    omit?: OfflineClinicOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -16202,6 +17469,28 @@ export namespace Prisma {
   };
 
   export type NewsScalarFieldEnum = (typeof NewsScalarFieldEnum)[keyof typeof NewsScalarFieldEnum]
+
+
+  export const OfflineClinicScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    doctorName: 'doctorName',
+    specialty: 'specialty',
+    phone: 'phone',
+    email: 'email',
+    address: 'address',
+    city: 'city',
+    state: 'state',
+    pincode: 'pincode',
+    latitude: 'latitude',
+    longitude: 'longitude',
+    timing: 'timing',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OfflineClinicScalarFieldEnum = (typeof OfflineClinicScalarFieldEnum)[keyof typeof OfflineClinicScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -17415,6 +18704,115 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"News"> | Date | string
   }
 
+  export type OfflineClinicWhereInput = {
+    AND?: OfflineClinicWhereInput | OfflineClinicWhereInput[]
+    OR?: OfflineClinicWhereInput[]
+    NOT?: OfflineClinicWhereInput | OfflineClinicWhereInput[]
+    id?: StringFilter<"OfflineClinic"> | string
+    name?: StringFilter<"OfflineClinic"> | string
+    doctorName?: StringFilter<"OfflineClinic"> | string
+    specialty?: StringFilter<"OfflineClinic"> | string
+    phone?: StringFilter<"OfflineClinic"> | string
+    email?: StringNullableFilter<"OfflineClinic"> | string | null
+    address?: StringFilter<"OfflineClinic"> | string
+    city?: StringFilter<"OfflineClinic"> | string
+    state?: StringFilter<"OfflineClinic"> | string
+    pincode?: StringFilter<"OfflineClinic"> | string
+    latitude?: FloatFilter<"OfflineClinic"> | number
+    longitude?: FloatFilter<"OfflineClinic"> | number
+    timing?: StringFilter<"OfflineClinic"> | string
+    isActive?: BoolFilter<"OfflineClinic"> | boolean
+    createdAt?: DateTimeFilter<"OfflineClinic"> | Date | string
+    updatedAt?: DateTimeFilter<"OfflineClinic"> | Date | string
+  }
+
+  export type OfflineClinicOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    doctorName?: SortOrder
+    specialty?: SortOrder
+    phone?: SortOrder
+    email?: SortOrderInput | SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    pincode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    timing?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OfflineClinicWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OfflineClinicWhereInput | OfflineClinicWhereInput[]
+    OR?: OfflineClinicWhereInput[]
+    NOT?: OfflineClinicWhereInput | OfflineClinicWhereInput[]
+    name?: StringFilter<"OfflineClinic"> | string
+    doctorName?: StringFilter<"OfflineClinic"> | string
+    specialty?: StringFilter<"OfflineClinic"> | string
+    phone?: StringFilter<"OfflineClinic"> | string
+    email?: StringNullableFilter<"OfflineClinic"> | string | null
+    address?: StringFilter<"OfflineClinic"> | string
+    city?: StringFilter<"OfflineClinic"> | string
+    state?: StringFilter<"OfflineClinic"> | string
+    pincode?: StringFilter<"OfflineClinic"> | string
+    latitude?: FloatFilter<"OfflineClinic"> | number
+    longitude?: FloatFilter<"OfflineClinic"> | number
+    timing?: StringFilter<"OfflineClinic"> | string
+    isActive?: BoolFilter<"OfflineClinic"> | boolean
+    createdAt?: DateTimeFilter<"OfflineClinic"> | Date | string
+    updatedAt?: DateTimeFilter<"OfflineClinic"> | Date | string
+  }, "id">
+
+  export type OfflineClinicOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    doctorName?: SortOrder
+    specialty?: SortOrder
+    phone?: SortOrder
+    email?: SortOrderInput | SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    pincode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    timing?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: OfflineClinicCountOrderByAggregateInput
+    _avg?: OfflineClinicAvgOrderByAggregateInput
+    _max?: OfflineClinicMaxOrderByAggregateInput
+    _min?: OfflineClinicMinOrderByAggregateInput
+    _sum?: OfflineClinicSumOrderByAggregateInput
+  }
+
+  export type OfflineClinicScalarWhereWithAggregatesInput = {
+    AND?: OfflineClinicScalarWhereWithAggregatesInput | OfflineClinicScalarWhereWithAggregatesInput[]
+    OR?: OfflineClinicScalarWhereWithAggregatesInput[]
+    NOT?: OfflineClinicScalarWhereWithAggregatesInput | OfflineClinicScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"OfflineClinic"> | string
+    name?: StringWithAggregatesFilter<"OfflineClinic"> | string
+    doctorName?: StringWithAggregatesFilter<"OfflineClinic"> | string
+    specialty?: StringWithAggregatesFilter<"OfflineClinic"> | string
+    phone?: StringWithAggregatesFilter<"OfflineClinic"> | string
+    email?: StringNullableWithAggregatesFilter<"OfflineClinic"> | string | null
+    address?: StringWithAggregatesFilter<"OfflineClinic"> | string
+    city?: StringWithAggregatesFilter<"OfflineClinic"> | string
+    state?: StringWithAggregatesFilter<"OfflineClinic"> | string
+    pincode?: StringWithAggregatesFilter<"OfflineClinic"> | string
+    latitude?: FloatWithAggregatesFilter<"OfflineClinic"> | number
+    longitude?: FloatWithAggregatesFilter<"OfflineClinic"> | number
+    timing?: StringWithAggregatesFilter<"OfflineClinic"> | string
+    isActive?: BoolWithAggregatesFilter<"OfflineClinic"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"OfflineClinic"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"OfflineClinic"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     clerkUserId: string
@@ -18548,6 +19946,139 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OfflineClinicCreateInput = {
+    id?: string
+    name: string
+    doctorName: string
+    specialty: string
+    phone: string
+    email?: string | null
+    address: string
+    city: string
+    state: string
+    pincode: string
+    latitude: number
+    longitude: number
+    timing: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OfflineClinicUncheckedCreateInput = {
+    id?: string
+    name: string
+    doctorName: string
+    specialty: string
+    phone: string
+    email?: string | null
+    address: string
+    city: string
+    state: string
+    pincode: string
+    latitude: number
+    longitude: number
+    timing: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OfflineClinicUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    doctorName?: StringFieldUpdateOperationsInput | string
+    specialty?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    pincode?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    timing?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OfflineClinicUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    doctorName?: StringFieldUpdateOperationsInput | string
+    specialty?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    pincode?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    timing?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OfflineClinicCreateManyInput = {
+    id?: string
+    name: string
+    doctorName: string
+    specialty: string
+    phone: string
+    email?: string | null
+    address: string
+    city: string
+    state: string
+    pincode: string
+    latitude: number
+    longitude: number
+    timing: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type OfflineClinicUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    doctorName?: StringFieldUpdateOperationsInput | string
+    specialty?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    pincode?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    timing?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OfflineClinicUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    doctorName?: StringFieldUpdateOperationsInput | string
+    specialty?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    state?: StringFieldUpdateOperationsInput | string
+    pincode?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    timing?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19570,6 +21101,73 @@ export namespace Prisma {
     isActive?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type OfflineClinicCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    doctorName?: SortOrder
+    specialty?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    pincode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    timing?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OfflineClinicAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type OfflineClinicMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    doctorName?: SortOrder
+    specialty?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    pincode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    timing?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OfflineClinicMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    doctorName?: SortOrder
+    specialty?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    state?: SortOrder
+    pincode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    timing?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OfflineClinicSumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type UserCreatequalificationsInput = {

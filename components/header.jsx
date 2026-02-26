@@ -126,11 +126,11 @@ const DesktopHeader = ({ user, credits }) => (
 
     {/* ================= CENTER : Nav ================= */}
     <div className="absolute left-1/2 -translate-x-1/2  md:flex items-center gap-8 text-lg font-bold text-muted-foreground">
-      <Link
-        href="/labs"
-        className="hover:text-client transition underline-center"
-      >
+      <Link href="/labs" className="hover:text-client transition underline-center">
         Labs
+      </Link>
+      <Link href="/find-clinic" className="hover:text-client transition underline-center">
+        Find Clinic
       </Link>
       <Link
         href="/doctors"
@@ -362,11 +362,14 @@ const MobileMenu = ({ user }) => {
           </SheetClose>
 
           <SheetClose asChild>
-            <Link
-              href="/labs"
-              className="p-1 font-bold rounded-md active:bg-client/20"
-            >
+            <Link href="/labs" className="p-1 font-bold rounded-md active:bg-client/20">
               Labs
+            </Link>
+          </SheetClose>
+
+          <SheetClose asChild>
+            <Link href="/find-clinic" className="p-1 font-bold rounded-md active:bg-client/20">
+              Find Clinic
             </Link>
           </SheetClose>
 

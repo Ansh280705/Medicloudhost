@@ -283,3 +283,28 @@ model News {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+// ==========================
+// OFFLINE CLINIC MODEL
+// ==========================
+model OfflineClinic {
+  id          String   @id @default(uuid())
+  name        String
+  doctorName  String
+  specialty   String
+  phone       String
+  email       String?
+  address     String   @db.Text
+  city        String
+  state       String
+  pincode     String
+  latitude    Float
+  longitude   Float
+  timing      String   // e.g. "Mon–Sat, 9am–6pm"
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([city])
+  @@index([isActive])
+}
