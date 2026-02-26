@@ -296,7 +296,7 @@ const patientGender = formData.get("patientGender");
     return { success: true, appointment };
   } catch (error) {
     console.error("Failed to book appointment:", error);
-    throw new Error("Failed to book appointment: " + error.message);
+    return { success: false, error: error.message };
   }
 }
 

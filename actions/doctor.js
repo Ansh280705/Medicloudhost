@@ -46,7 +46,7 @@ export async function setAvailabilitySlots(formData) {
     return { success: true, slot: newSlot };
   } catch (error) {
     console.error("Failed to set availability slots:", error);
-    throw new Error("Failed to set availability: " + error.message);
+    return { success: false, error: error.message };
   }
 }
 export async function getDoctorAvailability() {
@@ -114,7 +114,7 @@ export async function deleteAvailability(slotId) {
     return { success: true };
   } catch (error) {
     console.error("Failed to delete availability:", error);
-    throw new Error("Failed to delete availability: " + error.message);
+    return { success: false, error: error.message };
   }
 }
 
@@ -310,7 +310,7 @@ export async function cancelAppointment(formData) {
     return { success: true };
   } catch (error) {
     console.error("Failed to cancel appointment:", error);
-    throw new Error("Failed to cancel appointment: " + error.message);
+    return { success: false, error: error.message };
   }
 }
 
@@ -369,7 +369,7 @@ export async function addAppointmentNotes(formData) {
     return { success: true, appointment: updatedAppointment };
   } catch (error) {
     console.error("Failed to add appointment notes:", error);
-    throw new Error("Failed to update notes: " + error.message);
+    return { success: false, error: error.message };
   }
 }
 
@@ -445,8 +445,6 @@ export async function markAppointmentCompleted(formData) {
     return { success: true, appointment: updatedAppointment };
   } catch (error) {
     console.error("Failed to mark appointment as completed:", error);
-    throw new Error(
-      "Failed to mark appointment as completed: " + error.message
-    );
+    return { success: false, error: error.message };
   }
 }
