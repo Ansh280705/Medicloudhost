@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Check, X, Eye, Clock, History, Ban, ShieldCheck, AlertCircle } from "lucide-react";
-import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Check, X, Eye, Clock, History, Ban, ShieldCheck, AlertCircle, ExternalLink } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { verifyPaymentRequest } from "@/actions/payment";
 import { format } from "date-fns";
@@ -156,14 +156,24 @@ export function PaymentRequests({ requests = [], history = [] }) {
                                                     <Eye className="h-4 w-4 text-muted-foreground" />
                                                 </Button>
                                             </DialogTrigger>
-                                            <DialogContent className="max-w-2xl bg-transparent border-none shadow-none p-0 flex flex-col items-center justify-center">
+                                            <DialogContent className="max-w-4xl w-[95vw] h-[90vh] p-0 overflow-hidden bg-black/90 flex flex-col justify-center">
                                                 <DialogHeader className="sr-only"><DialogTitle>Screenshot</DialogTitle></DialogHeader>
-                                                <div className="relative bg-white p-2 rounded-lg shadow-xl overflow-hidden max-h-[85vh]">
-                                                    <img src={req.screenshotUrl} alt="Payment Screenshot" className="object-contain max-h-[80vh] w-auto rounded" />
-                                                    <div className="absolute top-4 right-4 flex gap-2">
-                                                        <Button size="sm" variant="secondary" onClick={() => window.open(req.screenshotUrl, '_blank')}>
-                                                            Open Original
+                                                <div className="relative w-full h-full flex items-center justify-center p-4">
+                                                    <img
+                                                        src={req.screenshotUrl}
+                                                        alt="Payment Screenshot"
+                                                        className="max-w-full max-h-full object-contain shadow-2xl"
+                                                    />
+                                                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3">
+                                                        <Button size="sm" variant="secondary" className="bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-md" onClick={() => window.open(req.screenshotUrl, '_blank')}>
+                                                            <ExternalLink className="w-4 h-4 mr-2" />
+                                                            Full View
                                                         </Button>
+                                                        <DialogClose asChild>
+                                                            <Button size="sm" variant="outline" className="text-white border-white/20 hover:bg-white/10 backdrop-blur-md">
+                                                                Close
+                                                            </Button>
+                                                        </DialogClose>
                                                     </div>
                                                 </div>
                                             </DialogContent>

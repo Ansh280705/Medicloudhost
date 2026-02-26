@@ -130,137 +130,118 @@ export function PendingDoctors({ doctors }) {
         </CardContent>
       </Card>
 
-      {/* Doctor Details Dialog */}
       {selectedDoctor && (
         <Dialog open={!!selectedDoctor} onOpenChange={handleCloseDialog}>
-          <DialogContent className="max-w-3xl">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-bold text-black">
-                Doctor Verification Details
-              </DialogTitle>
-              <DialogDescription>
-                Review the doctor&apos;s information carefully before making a
-                decision
-              </DialogDescription>
-            </DialogHeader>
-
-            <div className="space-y-6 py-4">
-              {/* Basic Info */}
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="space-y-1 flex-1">
-                  <h4 className="text-sm font-medium text-muted-foreground">
-                    Full Name
-                  </h4>
-                  <p className="text-base font-medium text-black">
-                    {selectedDoctor.name}
+          <DialogContent className="max-w-3xl w-[95vw] sm:w-[85vw] h-[70vh] sm:h-[80vh] flex flex-col p-0 bg-white border-none shadow-2xl rounded-2xl overflow-hidden">
+            {/* Fixed Header */}
+            <div className="p-5 border-b shrink-0 bg-white">
+              <div className="flex items-center gap-3">
+                <div className="bg-client/10 p-2 rounded-lg hidden sm:block">
+                  <User className="h-5 w-5 text-client" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold text-slate-900 leading-tight">
+                    Doctor Verification
+                  </h2>
+                  <p className="text-[10px] font-medium text-slate-500 mt-1 uppercase tracking-widest">
+                    ID #{selectedDoctor.id.slice(-4).toUpperCase()}
                   </p>
                 </div>
-                <div className="space-y-1 flex-1">
-                  <h4 className="text-sm font-medium text-muted-foreground">
-                    Email
-                  </h4>
-                  <p className="text-base font-medium text-black">
-                    {selectedDoctor.email}
-                  </p>
-                </div>
-                <div className="space-y-1 flex-1">
-                  <h4 className="text-sm font-medium text-muted-foreground">
-                    Application Date
-                  </h4>
-                  <p className="text-base font-medium text-black">
-                    {format(new Date(selectedDoctor.createdAt), "PPP")}
-                  </p>
-                </div>
-              </div>
-
-              <Separator className="bg-emerald-900/20" />
-
-              {/* Professional Details */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <Medal className="h-5 w-5 text-emerald-400" />
-                  <h3 className="text-black font-medium">
-                    Professional Information
-                  </h3>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
-                  <div className="space-y-1">
-                    <h4 className="text-sm font-medium text-muted-foreground">
-                      Specialty
-                    </h4>
-                    <p className="text-black">{selectedDoctor.specialty}</p>
-                  </div>
-
-                  <div className="space-y-1">
-                    <h4 className="text-sm font-medium text-muted-foreground">
-                      Years of Experience
-                    </h4>
-                    <p className="text-black">
-                      {selectedDoctor.experience} years
-                    </p>
-                  </div>
-
-                  <div className="space-y-1 col-span-2">
-                    <h4 className="text-sm font-medium text-muted-foreground">
-                      Credentials
-                    </h4>
-                    <div className="flex items-center">
-                      <a
-                        href={selectedDoctor.credentialUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-emerald-400 hover:text-emerald-300 flex items-center"
-                      >
-                        View Credentials
-                        <ExternalLink className="h-4 w-4 ml-1" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <Separator className="bg-emerald-900/20" />
-
-              {/* Description */}
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-emerald-400" />
-                  <h3 className="text-client font-medium">
-                    Service Description
-                  </h3>
-                </div>
-                <p className="text-muted-foreground whitespace-pre-line">
-                  {selectedDoctor.description}
-                </p>
               </div>
             </div>
 
-            {loading && <BarLoader width={"100%"} color="#36d7b7" />}
+            {/* Main Scrollable Body */}
+            <div className="flex-1 overflow-y-auto bg-white min-h-0">
+              <div className="p-5 space-y-6">
+                {/* Profile Stats Overview */}
+                <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="space-y-1">
+                      <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Name</h4>
+                      <p className="text-sm font-bold text-slate-800">{selectedDoctor.name}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email</h4>
+                      <p className="text-xs font-semibold text-slate-600 break-all">{selectedDoctor.email}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Date</h4>
+                      <p className="text-xs font-semibold text-slate-700">{format(new Date(selectedDoctor.createdAt), "PPP")}</p>
+                    </div>
+                  </div>
+                </div>
 
-            <DialogFooter className="flex sm:justify-between">
+                {/* Professional Qualifications */}
+                <div className="space-y-4">
+                  <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Qualifications</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="p-4 bg-white border rounded-xl shadow-sm">
+                      <p className="text-[10px] font-bold text-client uppercase mb-1">Specialty</p>
+                      <p className="text-sm font-bold text-slate-900">{selectedDoctor.specialty}</p>
+                    </div>
+                    <div className="p-4 bg-white border rounded-xl shadow-sm">
+                      <p className="text-[10px] font-bold text-client uppercase mb-1">Experience</p>
+                      <p className="text-sm font-bold text-slate-900">{selectedDoctor.experience} Years</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Document Verification */}
+                <div className="p-5 bg-slate-900 rounded-xl shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-white/10 p-2 rounded-lg">
+                      <FileText className="h-5 w-5 text-emerald-400" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold text-white/50 uppercase tracking-widest">Identity Proof</p>
+                      <p className="text-sm font-bold text-white">Medical License PDF</p>
+                    </div>
+                  </div>
+                  <a
+                    href={selectedDoctor.credentialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto px-6 py-2 bg-client text-white text-[10px] font-bold rounded-lg flex items-center justify-center gap-2"
+                  >
+                    View Document <ExternalLink className="h-3 w-3" />
+                  </a>
+                </div>
+
+                {/* Service Statement */}
+                <div className="space-y-3 pb-4">
+                  <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Statement</h3>
+                  <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed whitespace-pre-line italic">
+                      &ldquo;{selectedDoctor.description || "No description provided."}&rdquo;
+                    </p>
+                  </div>
+                </div>
+   <div className="p-4 border-t bg-white shrink-0 my-[40px] flex flex-row items-center gap-3">
               <Button
-                variant="destructive"
-                onClick={() =>
-                  handleUpdateStatus(selectedDoctor.id, "REJECTED")
-                }
+                variant="outline"
+                onClick={() => handleUpdateStatus(selectedDoctor.id, "REJECTED")}
                 disabled={loading}
-                className="bg-red-600 hover:bg-red-700"
+                className="flex-1 h-11 border-slate-200 text-slate-500 font-bold rounded-xl hover:bg-red-50 hover:text-red-600 transition-colors"
               >
                 <X className="mr-2 h-4 w-4" />
                 Reject
               </Button>
               <Button
-                onClick={() =>
-                  handleUpdateStatus(selectedDoctor.id, "VERIFIED")
-                }
+                onClick={() => handleUpdateStatus(selectedDoctor.id, "VERIFIED")}
                 disabled={loading}
-                className="bg-emerald-600 hover:bg-emerald-700"
+                className="flex-1 h-11 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/20 transition-all"
               >
                 <Check className="mr-2 h-4 w-4" />
                 Approve
               </Button>
-            </DialogFooter>
+            </div>
+
+              </div>
+            </div>
+
+           
+         
+
           </DialogContent>
         </Dialog>
       )}

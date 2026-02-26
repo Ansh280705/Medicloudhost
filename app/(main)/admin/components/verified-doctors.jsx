@@ -101,34 +101,37 @@ export function VerifiedDoctors({ doctors }) {
                 return (
                   <Card
                     key={doctor.id}
-                    className="bg-card border-client border-2  hover:border-client/30 transition-all"
+                    className="bg-card border-client border-2 hover:border-client/30 transition-all overflow-hidden"
                   >
                     <CardContent className="p-4">
                       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div className="flex items-center gap-3">
-                          <div className="bg-muted/20 rounded-full p-2">
+                        <div className="flex items-start gap-3 min-w-0">
+                          <div className="bg-muted/20 rounded-full p-2 shrink-0 mt-0.5">
                             <User className="h-5 w-5 text-client " />
                           </div>
-                          <div>
-                            <h3 className="font-medium text-client">
+                          <div className="flex-1 min-w-0 overflow-hidden">
+                            <h3 className="font-bold text-client truncate">
                               {doctor.name}
                             </h3>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-muted-foreground line-clamp-2">
                               {doctor.specialty} {doctor.qualifications && doctor.qualifications.length > 0 && (
                                 <span className="text-emerald-600/80 font-medium">({doctor.qualifications.join(", ")})</span>
-                              )} • {doctor.experience > 0 ? `${doctor.experience} years experience` : "No experience"}
+                              )}
                             </p>
-                            <p className="text-sm text-muted-foreground mt-1">
-                              {doctor.email}
-                            </p>
+                            <div className="flex flex-col gap-1 mt-2 text-xs text-muted-foreground">
+                              <span className="flex items-center gap-1 font-medium">
+                                {doctor.experience > 0 ? `${doctor.experience} years experience` : "No experience"}
+                              </span>
+                              <span className="truncate">{doctor.email}</span>
+                            </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 self-end md:self-auto">
+                        <div className="flex items-center gap-2 w-full md:w-auto mt-2 md:mt-0">
                           {isSuspended ? (
                             <>
                               <Badge
                                 variant="outline"
-                                className="bg-red-900/20 border-red-900/30 text-red-400"
+                                className="bg-red-900/20 border-red-900/30 text-red-400 shrink-0"
                               >
                                 Suspended
                               </Badge>
@@ -139,7 +142,7 @@ export function VerifiedDoctors({ doctors }) {
                                   handleStatusChange(doctor, false)
                                 }
                                 disabled={loading}
-                                className="border-emerald-900/30 hover:bg-muted/80"
+                                className="border-emerald-900/30 hover:bg-muted/80 flex-1 md:flex-none"
                               >
                                 {loading && targetDoctor?.id === doctor.id ? (
                                   <Loader2 className="h-4 w-4 mr-1 animate-spin" />
@@ -153,7 +156,7 @@ export function VerifiedDoctors({ doctors }) {
                             <>
                               <Badge
                                 variant="outline"
-                                className="bg-emerald-900/20 border-emerald-900/30 text-emerald-400"
+                                className="bg-emerald-900/20 border-emerald-900/30 text-emerald-400 shrink-0"
                               >
                                 Active
                               </Badge>
@@ -162,7 +165,7 @@ export function VerifiedDoctors({ doctors }) {
                                 size="sm"
                                 onClick={() => handleStatusChange(doctor, true)}
                                 disabled={loading}
-                                className="border-red-900/30 hover:bg-red-900/10 text-red-400"
+                                className="border-red-900/30 hover:bg-red-900/10 text-red-400 flex-1 md:flex-none"
                               >
                                 {loading && targetDoctor?.id === doctor.id ? (
                                   <Loader2 className="h-4 w-4 mr-1 animate-spin" />

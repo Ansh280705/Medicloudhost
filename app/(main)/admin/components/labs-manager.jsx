@@ -237,20 +237,27 @@ export function LabsManager({ labs }) {
             {labs.map((lab) => (
               <div
                 key={lab.id}
-                className="flex items-center justify-between p-4 border rounded-lg"
+                className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border rounded-lg gap-4"
               >
-                <div className="space-y-1">
-                  <h3 className="font-semibold">{lab.name}</h3>
-                  <div className="flex items-center text-sm text-muted-foreground space-x-4">
-                    <span className="flex items-center"><MapPin className="w-3 h-3 mr-1" /> {lab.address}</span>
-                    <span className="flex items-center"><Star className="w-3 h-3 mr-1 text-orange-400" /> {lab.rating} ({lab.reviews})</span>
-                  </div>
-                  <div className="flex items-center text-sm text-muted-foreground space-x-4">
-                    <span className="flex items-center"><Clock className="w-3 h-3 mr-1" /> {lab.timings}</span>
-                    <span className="flex items-center"><IndianRupee className="w-3 h-3 mr-1" /> {lab.price}</span>
+                <div className="space-y-2 flex-1">
+                  <h3 className="font-semibold text-lg">{lab.name}</h3>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex flex-wrap items-center text-sm text-muted-foreground gap-x-4 gap-y-1">
+                      <span className="flex items-center"><MapPin className="w-3 h-3 mr-1 text-emerald-400" /> {lab.address}</span>
+                      <span className="flex items-center"><Star className="w-3 h-3 mr-1 text-orange-400" /> {lab.rating} ({lab.reviews})</span>
+                    </div>
+                    <div className="flex flex-wrap items-center text-sm text-muted-foreground gap-x-4 gap-y-1">
+                      <span className="flex items-center"><Clock className="w-3 h-3 mr-1 text-emerald-400" /> {lab.timings}</span>
+                      <span className="flex items-center"><IndianRupee className="w-3 h-3 mr-1 text-emerald-400" /> {lab.price}</span>
+                    </div>
                   </div>
                 </div>
-                <Button variant="destructive" size="sm" onClick={() => handleDelete(lab.id)}>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => handleDelete(lab.id)}
+                  className="sm:w-auto w-fit self-end sm:self-center"
+                >
                   <Trash2 className="h-4 w-4" />
                 </Button>
               </div>
