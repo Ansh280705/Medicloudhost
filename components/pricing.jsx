@@ -19,7 +19,7 @@ import { initiatePhonePePayment } from "@/actions/phonepe";
 import { format } from "date-fns";
 
 const plans = [
-  { id: "BASIC", price: 1, credits: 1, currency: "INR" },
+  { id: "BASIC", price: 300, credits: 1, currency: "INR" },
   { id: "STANDARD", price: 600, credits: 2, popular: true, currency: "INR" },
   { id: "PREMIUM", price: 900, credits: 3, currency: "INR" },
 ];
