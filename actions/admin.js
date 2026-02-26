@@ -304,3 +304,79 @@ export async function getAllBlogs() {
     return { blogs: [] };
   }
 }
+
+export async function getActiveSOSAlerts() {
+  const isAdmin = await verifyAdmin();
+  if (!isAdmin) return { alerts: [] };
+
+  try {
+    const alerts = await db.emergencyAlert.findMany({
+      where: {
+        status: "ACTIVE",
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+            imageUrl: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take: 5,
+    });
+
+    return { alerts };
+  } catch (error) {
+    console.error("Failed to fetch SOS alerts:", error);
+    return { alerts: [] };
+  }
+}
+
+export async function resolveSOSAlert(alertId) {
+  const isAdmin = await verifyAdmin();
+  if (!isAdmin) throw new Error("Unauthorized");
+
+  try {
+    await db.emergencyAlert.update({
+      where: { id: alertId },
+      data: { status: "RESOLVED" },
+    });
+    revalidatePath("/admin");
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to resolve SOS alert:", error);
+    return { error: "Failed to resolve alert" };
+  }
+}
+
+export async function getAllSOSAlerts() {
+  const isAdmin = await verifyAdmin();
+  if (!isAdmin) return { alerts: [] };
+
+  try {
+    const alerts = await db.emergencyAlert.findMany({
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+            imageUrl: true,
+            phone: true,
+          },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 50,
+    });
+
+    return { alerts };
+  } catch (error) {
+    console.error("Failed to fetch all SOS alerts:", error);
+    return { alerts: [] };
+  }
+}
+

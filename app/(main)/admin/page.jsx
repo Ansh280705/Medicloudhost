@@ -3,6 +3,7 @@ import {
   getVerifiedDoctors,
   getPendingPayouts,
   getAllBlogs,
+  getAllSOSAlerts,
 } from "@/actions/admin";
 import { getPaymentRequests } from "@/actions/payment";
 import { TabsContent } from "@radix-ui/react-tabs";
@@ -14,12 +15,13 @@ import { LabsManager } from "./components/labs-manager";
 import { PaymentRequests } from "./components/payment-requests";
 import { getLabs } from "@/actions/labs";
 import { getNews } from "@/actions/news";
+import { SOSAlertsPanel } from "./components/sos-alerts-panel";
 
 import { TabAnimatedContent } from "./components/tab-animated-content";
 import { NewsManager } from "./components/news-manager";
 
 export default async function AdminPage() {
-  const [pendingDoctorsData, verifiedDoctorsData, pendingPayoutsData, blogsData, labsData, paymentData, newsData] =
+  const [pendingDoctorsData, verifiedDoctorsData, pendingPayoutsData, blogsData, labsData, paymentData, newsData, sosData] =
     await Promise.all([
       getPendingDoctors(),
       getVerifiedDoctors(),
@@ -28,6 +30,7 @@ export default async function AdminPage() {
       getLabs(),
       getPaymentRequests(),
       getNews(),
+      getAllSOSAlerts(),
     ]);
 
   return (
@@ -74,6 +77,12 @@ export default async function AdminPage() {
        <TabsContent value="labs" className="border-none p-0">
         <TabAnimatedContent>
           <LabsManager labs={labsData|| []} />
+        </TabAnimatedContent>
+      </TabsContent>
+
+      <TabsContent value="sos" className="border-none p-0">
+        <TabAnimatedContent>
+          <SOSAlertsPanel alerts={sosData.alerts || []} />
         </TabAnimatedContent>
       </TabsContent>
     </>

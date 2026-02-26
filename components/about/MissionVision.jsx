@@ -20,7 +20,7 @@ export default function MissionVision() {
             Our Vision
           </h3>
           <p className="text-muted-foreground leading-relaxed">
-            We envision DoctorDesk as a trusted digital platform that
+            We envision MediCloud as a trusted digital platform that
             empowers users, supports professionals, and transforms the future of
             online professional sessions.
           </p>

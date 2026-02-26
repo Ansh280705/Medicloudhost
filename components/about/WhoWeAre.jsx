@@ -8,7 +8,7 @@ export default function WhoWeAre() {
         </h2>
 
         <p className="mb-6">
-          DoctorDesk is a software-as-a-service (SaaS) platform that provides appointment
+          MediCloud is a software-as-a-service (SaaS) platform that provides appointment
           booking and practice management tools for independent professionals and their clients.
         </p>
 
@@ -27,14 +27,14 @@ export default function WhoWeAre() {
         </p>
 
         <p>
-          DoctorDesk does not provide medical services or professional advice and does not
+          MediCloud does not provide medical services or professional advice and does not
           employ practitioners. All services are delivered independently by professionals
           using the platform.
         </p>
 
       </div>
       <div className="container mx-auto px-6 lg:px-20 mt-8 pt-6 border-t border-border/20 text-xs text-muted-foreground text-center">
-         <p>DoctorDesk is a technology platform and does not provide medical consultation, diagnosis, treatment, or prescriptions. All services are provided independently by professionals using the platform.</p>
+         <p>MediCloud is a technology platform and does not provide medical consultation, diagnosis, treatment, or prescriptions. All services are provided independently by professionals using the platform.</p>
       </div>
     </section>
   );

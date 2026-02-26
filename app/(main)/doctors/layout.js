@@ -1,7 +1,7 @@
-import PageLoader from "@/components/PageLoader";
+﻿import PageLoader from "@/components/PageLoader";
 
 export const metadata = {
-  title: "Find Doctors - DoctorDesk",
+  title: "Find Doctors - Medicloud",
   description: "Browse and book sessions with top professionals",
 };
 

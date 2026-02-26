@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+﻿import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Building } from "lucide-react";
 
 export default function LegalInformationPage() {
@@ -9,7 +9,7 @@ export default function LegalInformationPage() {
           <h1 className="text-4xl font-bold">Legal Information</h1>
           <p className="text-muted-foreground mt-2 max-w-xl mx-auto">
             Official company details and registration information for
-            DoctorDesk.
+            Medicloud.
           </p>
         </div>
 
@@ -27,7 +27,7 @@ export default function LegalInformationPage() {
                   <h4 className="font-semibold text-foreground flex items-center gap-2">
                     Legal Business Name
                   </h4>
-                  <p className="text-muted-foreground mt-1">DoctorDesk</p>
+                  <p className="text-muted-foreground mt-1">Medicloud</p>
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground flex items-center gap-2">
@@ -85,7 +85,7 @@ export default function LegalInformationPage() {
                     <Mail className="h-5 w-5 text-client" />
                     Contact Email
                   </h4>
-                  <p className="text-client">doctordeskOfficial@gmail.com</p>
+                  <p className="text-client">MedicloudOfficial@gmail.com</p>
                   {/* <p className="text-client">Abhirajjaiswal500@gmail.com</p> */}
                 </div>
                 <div>
@@ -102,7 +102,7 @@ export default function LegalInformationPage() {
 
           <div className="mt-10 text-center text-sm text-muted-foreground">
             <p>
-              DoctorDesk is a technology platform and does not provide medical
+              Medicloud is a technology platform and does not provide medical
               consultation, diagnosis, treatment, or prescriptions. All services
               are provided independently by professionals using the platform.
             </p>

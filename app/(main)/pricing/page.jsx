@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+﻿import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, CreditCard, Shield, Check } from "lucide-react";
 import { PricingTable } from "@clerk/nextjs";
@@ -32,8 +32,8 @@ export default async function PricingPage() {
           Simple, Transparent Pricing
         </h1>
 
-        All payments made on DoctorDesk are for software platform usage, subscription
-        access, and digital tools provided by the platform. DoctorDesk does not collect
+        All payments made on Medicloud are for software platform usage, subscription
+        access, and digital tools provided by the platform. Medicloud does not collect
         fees for medical or professional advice.
       </div>
 
@@ -46,7 +46,7 @@ export default async function PricingPage() {
           Questions? We're Here to Help
         </h2>
         <p className="text-muted-foreground mb-4">
-          Contact our support team at DoctorDeskOfficial@gmail.com
+          Contact our support team at MedicloudOfficial@gmail.com
         </p>
       </div>
     </div>

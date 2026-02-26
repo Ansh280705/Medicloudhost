@@ -65,9 +65,9 @@ const MobileHeader = ({ user }) => {
       {/* CENTER - Logo */}
       <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-1">
         <Link href="/" className="flex items-center gap-1">
-          <Image src="/final-logo.png" width={40} height={40} alt="logo" />
+          <Image src="/medi-cloud-logo.png" width={48} height={48} alt="MediCloud logo" className="object-contain" />
           <span className="font-bold text-lg">
-            Doctor<span className="text-client">Desk</span>
+            Medi<span className="text-client">Cloud</span>
           </span>
         </Link>
       </div>
@@ -111,14 +111,15 @@ const DesktopHeader = ({ user, credits }) => (
     {/* LEFT - LOGO */}
     <Link href="/" className="flex items-center gap-1 ">
       <Image
-        src="/final-logo.png"
-        alt="DoctorDesk logo"
-        width={60}
-        height={60}
+        src="/medi-cloud-logo.png"
+        alt="MediCloud logo"
+        width={52}
+        height={52}
         priority
+        className="object-contain"
       />
       <span className="text-xl font-bold tracking-tight ">
-        Doctor<span className="text-client">Desk</span>
+        Medi<span className="text-client">Cloud</span>
       </span>
     </Link>
 

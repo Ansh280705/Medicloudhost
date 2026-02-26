@@ -133,6 +133,7 @@ export function PendingDoctors({ doctors }) {
       {selectedDoctor && (
         <Dialog open={!!selectedDoctor} onOpenChange={handleCloseDialog}>
           <DialogContent className="max-w-3xl w-[95vw] sm:w-[85vw] h-[70vh] sm:h-[80vh] flex flex-col p-0 bg-white border-none shadow-2xl rounded-2xl overflow-hidden">
+            <DialogTitle className="sr-only">Doctor Verification</DialogTitle>
             {/* Fixed Header */}
             <div className="p-5 border-b shrink-0 bg-white">
               <div className="flex items-center gap-3">

@@ -8,17 +8,17 @@ export default function AboutHero() {
         {/* LEFT CONTENT */}
         <div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-            About <span className="text-client">DoctorDesk</span>
+            About <span className="text-client">MediCloud</span>
           </h1>
 
           <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-            DoctorDesk is a modern online professional platform that enables
+            MediCloud is a modern online professional platform that enables
             users to consult confirmed experts digitally using a secure,
             transparent, and credit-based session system.
           </p>
 
           <p className="text-muted-foreground leading-relaxed">
-            Built with scalability and user trust in mind, DoctorDesk focuses on
+            Built with scalability and user trust in mind, MediCloud focuses on
             fast online expert sessions, data security, and a seamless
             user experience.
           </p>

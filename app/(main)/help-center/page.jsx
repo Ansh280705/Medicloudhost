@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import { useUser } from "@clerk/nextjs";
@@ -34,10 +34,10 @@ export default function HelpCenterPage() {
     <>
       {/* ---------------- SEO ---------------- */}
       <Head>
-        <title>Help Center | DoctorDesk</title>
+        <title>Help Center | Medicloud</title>
         <meta
           name="description"
-          content="Find answers to common questions about DoctorDesk consultations, credits, payments, doctors, and security."
+          content="Find answers to common questions about Medicloud consultations, credits, payments, doctors, and security."
         />
       </Head>
 
@@ -48,7 +48,7 @@ export default function HelpCenterPage() {
           <div className="text-center mb-14">
             <h1 className="text-4xl font-bold">Help Center</h1>
             <p className="text-muted-foreground mt-2">
-              Find quick answers to common questions about DoctorDesk.
+              Find quick answers to common questions about Medicloud.
             </p>
           </div>
 

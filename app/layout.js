@@ -1,4 +1,4 @@
-import { Poppins } from "next/font/google";
+﻿import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
@@ -10,6 +10,7 @@ import { checkUser } from "@/lib/checkUser";
 import PageLoader from "@/components/PageLoader";
 import { Toaster } from "sonner";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import SOSButton from "@/components/SOSButton";
 import PaymentToast from "@/components/payment-toast";
 
 /* =========================
@@ -25,17 +26,17 @@ const inter = Poppins({
    ========================= */
 export const metadata = {
   title: {
-    default: "DoctorDesk",
-    template: "%s | DoctorDesk",
+    default: "MediCloud",
+    template: "%s | MediCloud",
   },
 
   description:
-    "DoctorDesk is a smart clinic and patient management platform for modern healthcare professionals, enabling online doctor appointments, digital patient records, scheduling, billing, and seamless clinic workflows in one secure system.",
+    "MediCloud is a smart clinic and patient management platform for modern healthcare professionals, enabling online doctor appointments, digital patient records, scheduling, billing, and seamless clinic workflows in one secure system.",
 
   keywords: [
       // Brand
-  "DoctorDesk",
-  "Doctor Desk",
+  "MediCloud",
+  "Medi Cloud",
 
   // Core product
   "doctor appointment app",
@@ -64,7 +65,7 @@ export const metadata = {
   "online clinic management india",
   ],
 
-  metadataBase: new URL("https://doctordesk.co.in"),
+  metadataBase: new URL("https://Medicloud.co.in"),
 
   manifest: "/manifest.json",
 
@@ -80,17 +81,17 @@ export const metadata = {
 
   /* --------- OPEN GRAPH --------- */
   openGraph: {
-    title: "DoctorDesk",
+    title: "MediCloud",
     description:
       "Smart clinic & patient management platform for modern healthcare professionals.",
-    url: "https://doctordesk.co.in",
-    siteName: "DoctorDesk",
+    url: "https://Medicloud.co.in",
+    siteName: "MediCloud",
     images: [
       {
-        url: "https://doctordesk.co.in/logo.png",
+        url: "https://Medicloud.co.in/medi-cloud-logo.png",
         width: 1200,
         height: 630,
-        alt: "DoctorDesk Logo",
+        alt: "MediCloud Logo",
       },
     ],
     locale: "en_IN",
@@ -100,10 +101,10 @@ export const metadata = {
   /* --------- TWITTER --------- */
   twitter: {
     card: "summary_large_image",
-    title: "DoctorDesk",
+    title: "MediCloud",
     description:
       "Secure scheduling and workflow platform for doctors & clinics.",
-    images: ["https://doctordesk.co.in/logo.png"],
+    images: ["https://Medicloud.co.in/medi-cloud-logo.png"],
   },
 
   /* --------- ROBOTS --------- */
@@ -177,9 +178,9 @@ export default async function RootLayout({ children }) {
             {JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "DoctorDesk",
-              url: "https://doctordesk.co.in",
-              logo: "https://doctordesk.co.in/logo.png",
+              name: "MediCloud",
+              url: "https://Medicloud.co.in",
+              logo: "https://Medicloud.co.in/medi-cloud-logo.png",
             })}
           </Script>
 
@@ -194,8 +195,8 @@ export default async function RootLayout({ children }) {
             {JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              name: "DoctorDesk",
-              url: "https://doctordesk.co.in",
+              name: "MediCloud",
+              url: "https://Medicloud.co.in",
             })}
           </Script>
 
@@ -219,6 +220,7 @@ export default async function RootLayout({ children }) {
                 </main>
 
                 <Footer />
+                <SOSButton userRole={user?.role} />
                 <WhatsAppButton />
                 <PaymentToast />
               </PageLoader>

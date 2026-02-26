@@ -1,8 +1,8 @@
-import React from "react";
+﻿import React from "react";
 
 export const metadata = {
-  title: "Refund Policy - DoctorDesk",
-  description: "Refund policy for platform usage on DoctorDesk.",
+  title: "Refund Policy - Medicloud",
+  description: "Refund policy for platform usage on Medicloud.",
 };
 
 const RefundPage = () => {
@@ -12,7 +12,7 @@ const RefundPage = () => {
 
       <div className="space-y-6 text-muted-foreground leading-relaxed">
         <p>
-          At DoctorDesk, we strive to provide a seamless experience for our users. Since our
+          At Medicloud, we strive to provide a seamless experience for our users. Since our
           services are digital SaaS tools, refunds and cancellations are governed by the
           following policy:
         </p>
@@ -31,7 +31,7 @@ const RefundPage = () => {
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-2">Consultation Sessions</h2>
           <p>
-            DoctorDesk is a technology platform and does not offer refunds for sessions
+            Medicloud is a technology platform and does not offer refunds for sessions
             scheduled or conducted with independent professionals. Any disputes regarding
             the quality of the session must be resolved directly with the professional.
           </p>
@@ -42,7 +42,7 @@ const RefundPage = () => {
           <p>
             If a user experiences a technical issue related to platform access (e.g., system
             downtime or payment failure where credits were not assigned), they may contact
-            support at <strong>doctordeskOfficial@gmail.com</strong> within 48 hours for
+            support at <strong>MedicloudOfficial@gmail.com</strong> within 48 hours for
             review and resolution.
           </p>
         </section>

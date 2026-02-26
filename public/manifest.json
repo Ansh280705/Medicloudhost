@@ -1,6 +1,6 @@
 {
-    "name": "DoctorDesk",
-    "short_name": "DoctorDesk",
+    "name": "MediCloud",
+    "short_name": "MediCloud",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
@@ -12,12 +12,12 @@
             "type": "image/x-icon"
         },
         {
-            "src": "/final-logo.png",
+            "src": "/medi-cloud-logo.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "/final-logo.png",
+            "src": "/medi-cloud-logo.png",
             "sizes": "512x512",
             "type": "image/png"
         }

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs/server";
 import nodemailer from "nodemailer";
 
@@ -40,7 +40,7 @@ export async function POST(req) {
     });
 
     await transporter.sendMail({
-      from: `"DoctorDesk Contact" <${process.env.GMAIL_USER}>`,
+      from: `"Medicloud Contact" <${process.env.GMAIL_USER}>`,
       to: process.env.GMAIL_USER, // admin
       replyTo: email,
       subject: "📩 New Contact Message",

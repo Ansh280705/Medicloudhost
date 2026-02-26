@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import PrismBackground from "./PrismBackground";
 import LanyardFlipCard from "./LanyardFlipCard";
@@ -17,7 +17,7 @@ export default function TeamDevsPage() {
           <div className="text-center mb-20">
             <h1 className="text-4xl font-bold">The Dev Team</h1>
             <p className="text-white/70 mt-2">
-              People behind DoctorDesk
+              People behind Medicloud
             </p>
           </div>
 

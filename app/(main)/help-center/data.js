@@ -1,11 +1,11 @@
-export const helpArticles = [
+﻿export const helpArticles = [
   /* ---------------- CONSULTATIONS ---------------- */
   {
     role: "common",
     category: "Consultations",
     title: "How online consultation works",
     description:
-      "DoctorDesk allows you to consult verified doctors online using credits. Simply choose a doctor, book a slot, and start consultation through secure video call.",
+      "Medicloud allows you to consult verified doctors online using credits. Simply choose a doctor, book a slot, and start consultation through secure video call.",
   },
   {
     role: "patient",
@@ -21,7 +21,7 @@ export const helpArticles = [
     category: "Credits & Payments",
     title: "What are credits?",
     description:
-      "Credits are prepaid units used to book consultations and services on DoctorDesk. Different plans offer different credit limits.",
+      "Credits are prepaid units used to book consultations and services on Medicloud. Different plans offer different credit limits.",
   },
   {
     role: "patient",
@@ -44,7 +44,7 @@ export const helpArticles = [
     category: "Doctor Verification",
     title: "How does doctor verification work?",
     description:
-      "Doctors submit medical credentials and identity proof which are verified manually by the DoctorDesk admin team.",
+      "Doctors submit medical credentials and identity proof which are verified manually by the Medicloud admin team.",
   },
   {
     role: "doctor",
@@ -67,7 +67,7 @@ export const helpArticles = [
     category: "Privacy & Security",
     title: "Is my data secure?",
     description:
-      "Yes. DoctorDesk uses secure authentication, encrypted communication, and role-based access control to protect user data.",
+      "Yes. Medicloud uses secure authentication, encrypted communication, and role-based access control to protect user data.",
   },
 
   /* ---------------- ACCOUNT ---------------- */

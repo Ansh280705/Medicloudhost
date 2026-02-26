@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -17,13 +17,54 @@ import {
   MapPin,
   User,
   Building2,
+  AlertCircle,
+  Plus,
+  Trash,
+  Loader2,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getEmergencyContacts, updateEmergencyContacts } from "@/actions/safety";
+import { toast } from "sonner";
 
 export default function Footer() {
   const [modal, setModal] = useState(null);
+  const [emails, setEmails] = useState([]);
+  const [newEmail, setNewEmail] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (modal === "sos") {
+      getEmergencyContacts().then((res) => {
+        if (res.emails) setEmails(res.emails);
+      });
+    }
+  }, [modal]);
+
+  const handleAddEmail = () => {
+    if (!newEmail.includes("@")) return toast.error("Invalid email");
+    if (emails.includes(newEmail)) return toast.success("Email already in list");
+    setEmails([...emails, newEmail]);
+    setNewEmail("");
+  };
+
+  const handleRemoveEmail = (idx) => {
+    setEmails(emails.filter((_, i) => i !== idx));
+  };
+
+  const handleSaveContacts = async () => {
+    setSaving(true);
+    const res = await updateEmergencyContacts(emails);
+    setSaving(false);
+    if (res.success) {
+      toast.success("Secondary contacts updated ✅");
+      setModal(null);
+    } else {
+      toast.error(res.error || "Failed to update");
+    }
+  };
+
   return (
-    <footer className="relative  overflow-hidden bg-[rgb(238,239,248)]">
+    <footer className="relative overflow-hidden bg-[rgb(238,239,248)]">
       {/* ================= CTA SECTION ================= */}
       <div className="relative z-10 container mx-auto px-6 lg:px-20 ">
         <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-10 md:p-14">
@@ -71,7 +112,7 @@ export default function Footer() {
         {/* Watermark */}
         <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none translate-y-24">
           <span className="text-[12rem] md:text-[16rem] font-bold tracking-tight text-client/10 select-none whitespace-nowrap">
-            DoctorDesk
+            MediCloud
           </span>
         </div>
 
@@ -80,14 +121,14 @@ export default function Footer() {
           <div className="col-span-2">
             <div className="flex items-center ">
               <Image
-                src="/final-logo.png"
-                alt="DoctorDesk Logo"
+                src="/medi-cloud-logo.png"
+                alt="MediCloud Logo"
                 width={40}
                 height={40}
                 className="object-contain"
               />
               <h3 className="text-lg font-semibold text-foreground">
-                Doctor<span className="text-client">Desk</span>
+                Medi<span className="text-client">Cloud</span>
               </h3>
             </div>
             <p className="mt-3 max-w-sm">
@@ -106,11 +147,10 @@ export default function Footer() {
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-client shrink-0" />
                 <p>+91 81094-24356</p>
-                {/* <p>+91 7987109645</p> */}
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-client shrink-0" />
-                <p>doctordeskofficial@gmail.com</p>
+                <p>Medicloudofficial@gmail.com</p>
               </div>
               <div className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 text-client shrink-0 mt-0.5" />
@@ -118,8 +158,6 @@ export default function Footer() {
                   First Floor, Plot No. 17, Above New Globas Medical, Opposite
                   Satish Kirana, Gori Nagar, New Gouri Nagar, Sukhliya, Indore,
                   Madhya Pradesh – 452010
-                  {/* 513, Vynaktesh Vihar Chota Bangarda Road <br /> Indore, Madhya
-                  Pradesh – 452005 <br /> India */}
                 </p>
               </div>
             </div>
@@ -129,11 +167,6 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-foreground mb-3">Product</h4>
             <ul className="space-y-2">
-              <li>
-                {/* <Link href="#" className="hover:text-client">
-                  Features
-                </Link> */}
-              </li>
               <li>
                 <Link href="/pricing" className="hover:text-client">
                   Pricing
@@ -160,11 +193,6 @@ export default function Footer() {
                 >
                   Help Center
                 </Link>
-              </li>
-              <li>
-                {/* <Link href="#" className="hover:text-client">
-                  Docs
-                </Link> */}
               </li>
               <li>
                 <Link href="/blog" className="hover:text-client">
@@ -221,12 +249,16 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Social */}
           <div>
             <h4 className="font-semibold text-foreground mb-3">Connect</h4>
             <div className="flex items-center gap-4">
-              <button onClick={() => setModal("sms")} className="btn">
-                <MessageCircle className="w-6 h-6" />
+              <button
+                onClick={() => setModal("sos")}
+                className="btn group relative"
+                title="SOS Settings"
+              >
+                <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                <AlertCircle className="w-6 h-6 text-red-500" />
               </button>
 
               <button onClick={() => setModal("email")} className="btn">
@@ -239,51 +271,46 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* ================= BOTTOM BAR ================= */}
-      <div>
-        <div className="container mx-auto px-6 lg:px-20 border-t border-border/60 py-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <span>🟢 All systems operational</span>
+        {/* ================= BOTTOM BAR ================= */}
+        <div className="mt-20">
+          <div className="container mx-auto px-6 lg:px-20 border-t border-border/60 py-4 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+            <span>🟢 All systems operational</span>
 
-          <div className="flex gap-4">
-            <Link href="/privacy-policy" className="hover:text-client">
-              Privacy-Policy
-            </Link>
-            <Link href="/terms-and-conditions" className="hover:text-client">
-              Terms & Conditions
-            </Link>
-            {/* <Link href="/shipping-and-delivery" className="hover:text-client">
-              Shipping
-            </Link>
-            <Link href="/cancellation-policy" className="hover:text-client">
-              Cancellation
-            </Link> */}
-            <Link href="/refund-policy" className="hover:text-client">
-              Returns & Refunds
-            </Link>
+            <div className="flex gap-4">
+              <Link href="/privacy-policy" className="hover:text-client">
+                Privacy-Policy
+              </Link>
+              <Link href="/terms-and-conditions" className="hover:text-client">
+                Terms & Conditions
+              </Link>
+              <Link href="/refund-policy" className="hover:text-client">
+                Returns & Refunds
+              </Link>
+            </div>
+          </div>
+          <div className="container mx-auto px-6 lg:px-20 py-4 text-xs text-muted-foreground text-center border-t border-border/60 flex flex-col items-center gap-2">
+            <span>© {new Date().getFullYear()} MediCloud</span>
+            <p>
+              <strong>Company Name:</strong> MediCloud | <strong>Clinic:</strong> Yashoda Dental Care | <strong>Owner:</strong>{" "}
+              Dr. Ankit Chourasiya | <strong>Business Type:</strong> Individual /
+              Proprietorship | <strong>Service Type:</strong> SaaS / IT Services
+            </p>
+            <p>
+              <strong>Support:</strong> MedicloudOfficial@gmail.com
+            </p>
+            <p className="mt-2">
+              <strong>Refund Policy:</strong> If we approve your refund, we will process and credit it to your bank account within 3-5 days.
+            </p>
+            <p className="mt-2">
+              MediCloud is a technology platform and does not provide medical
+              consultation, diagnosis, treatment, or prescriptions. All services
+              are provided independently by professionals using the platform.
+            </p>
           </div>
         </div>
-        <div className="container mx-auto px-6 lg:px-20 py-4 text-xs text-muted-foreground text-center border-t border-border/60 flex flex-col items-center gap-2">
-          <span>© {new Date().getFullYear()} DoctorDesk</span>
-          <p>
-            <strong>Company Name:</strong> DoctorDesk | <strong>Clinic:</strong> Yashoda Dental Care | <strong>Owner:</strong>{" "}
-            Dr. Ankit Chourasiya | <strong>Business Type:</strong> Individual /
-            Proprietorship | <strong>Service Type:</strong> SaaS / IT Services
-          </p>
-          <p>
-            <strong>Support:</strong> doctordeskOfficial@gmail.com
-          </p>
-          <p className="mt-2">
-            <strong>Refund Policy:</strong> If we approve your refund, we will process and credit it to your bank account within 3-5 days.
-          </p>
-          {/* <p className="mt-2">
-            DoctorDesk is a technology platform and does not provide medical
-            consultation, diagnosis, treatment, or prescriptions. All services
-            are provided independently by professionals using the platform.
-          </p> */}
-        </div>
       </div>
+
       {modal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
@@ -293,6 +320,82 @@ export default function Footer() {
             >
               <X className="w-5 h-5" />
             </button>
+
+            {/* SOS SETTINGS */}
+            {modal === "sos" && (
+              <div className="space-y-5">
+                <div className="flex items-center gap-3 border-b pb-4">
+                  <div className="bg-red-50 p-2 rounded-lg">
+                    <AlertCircle className="w-6 h-6 text-red-500" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold text-gray-900">SOS Settings</h4>
+                    <p className="text-xs text-muted-foreground">Emergency Alerts for Family & Friends</p>
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-700">Secondary Emails</label>
+                    <div className="flex gap-2">
+                      <input
+                        type="email"
+                        placeholder="Add family/friend email"
+                        className="flex-1 px-4 py-2 rounded-xl border border-gray-200 text-sm focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
+                        value={newEmail}
+                        onChange={(e) => setNewEmail(e.target.value)}
+                        onKeyPress={(e) => e.key === "Enter" && handleAddEmail()}
+                      />
+                      <button
+                        onClick={handleAddEmail}
+                        className="p-2 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors"
+                      >
+                        <Plus className="w-5 h-5 text-gray-600" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="max-h-[160px] overflow-y-auto space-y-2 pr-1 custom-scrollbar">
+                    {emails.length === 0 ? (
+                      <p className="text-center py-4 text-xs text-muted-foreground italic bg-gray-50 rounded-lg border border-dashed">
+                        No secondary contacts added yet.
+                      </p>
+                    ) : (
+                      emails.map((email, i) => (
+                        <div key={i} className="flex items-center justify-between p-3 bg-red-50/30 border border-red-100 rounded-xl group animate-in slide-in-from-left-2 duration-300">
+                          <span className="text-sm text-gray-700 truncate max-w-[200px]">{email}</span>
+                          <button
+                            onClick={() => handleRemoveEmail(i)}
+                            className="text-red-400 hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-colors"
+                          >
+                            <Trash className="w-4 h-4" />
+                          </button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <Button
+                    onClick={handleSaveContacts}
+                    className="w-full bg-red-600 hover:bg-red-700 text-white rounded-xl h-12 shadow-md shadow-red-200 transition-all font-semibold"
+                    disabled={saving}
+                  >
+                    {saving ? (
+                      <span className="flex items-center gap-2">
+                        <Loader2 className="w-4 h-4 animate-spin" /> Saving...
+                      </span>
+                    ) : (
+                      "Save Emergency Contacts"
+                    )}
+                  </Button>
+                  <p className="text-[10px] text-center mt-3 text-muted-foreground italic">
+                    When you trigger SOS, a high-priority alert will be sent to these emails with your location.
+                  </p>
+                </div>
+              </div>
+            )}
 
             {/* SMS */}
             {modal === "sms" && (
@@ -322,11 +425,11 @@ export default function Footer() {
                   Send Email At
                   <span className="flex items-center gap-1 font-medium text-foreground ">
                     <MailIcon className="w-4 h-4" />
-                    doctordeskofficial@gmail.com
+                    Medicloudofficial@gmail.com
                   </span>
                 </p>
                 <Link
-                  href="mailto:doctordesk@gmail.com"
+                  href="mailto:Medicloud@gmail.com"
                   className="block text-center rounded-xl bg-client py-3 text-white font-medium hover:bg-client/80 transition-all duration-700"
                 >
                   Send Email
@@ -355,49 +458,5 @@ export default function Footer() {
         </div>
       )}
     </footer>
-  );
-}
-function SocialModal({ isOpen, onClose }) {
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white rounded-xl p-6 w-[90%] max-w-md relative animate-fadeIn">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-black"
-        >
-          ✕
-        </button>
-
-        <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-
-        <div className="space-y-4">
-          <a
-            href="https://instagram.com/yourpage"
-            target="_blank"
-            className="flex items-center gap-3 p-3 rounded-lg border hover:bg-gray-50"
-          >
-            <Instagram /> Instagram
-          </a>
-
-          <a
-            href="mailto:doctordeskofficial@gmail.com"
-            className="flex items-center gap-3 p-3 rounded-lg border hover:bg-gray-50"
-          >
-            <Mail /> Email Us
-          </a>
-
-          <a
-            href="https://wa.me/919999999999"
-            target="_blank"
-            className="flex items-center gap-3 p-3 rounded-lg border hover:bg-gray-50"
-          >
-            <MessageCircle /> WhatsApp
-          </a>
-        </div>
-      </div>
-    </div>
   );
 }

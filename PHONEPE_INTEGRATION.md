@@ -1,6 +1,6 @@
-# PhonePe Payment Gateway Integration
+﻿# PhonePe Payment Gateway Integration
 
-This document explains the PhonePe payment gateway integration in the DoctorDesk application.
+This document explains the PhonePe payment gateway integration in the Medicloud application.
 
 ## Overview
 

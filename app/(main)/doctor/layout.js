@@ -1,9 +1,9 @@
-import { Stethoscope } from "lucide-react";
+﻿import { Stethoscope } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import PageLoader from "@/components/PageLoader";
 
 export const metadata = {
-  title: "Doctor Dashboard - DoctorDesk",
+  title: "Doctor Dashboard - Medicloud",
   description: "Manage your appointments and availability",
 };
 

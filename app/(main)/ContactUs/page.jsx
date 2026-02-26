@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -166,7 +166,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold">Email</h3>
                   <p className="text-sm text-client mt-1">
-                    doctordeskOfficial@gmail.com doctordesk.team@gmail.com
+                    MedicloudOfficial@gmail.com Medicloud.team@gmail.com
                   </p>
                 </div>
               </CardContent>
@@ -197,7 +197,7 @@ export default function ContactPage() {
                 <h4 className="font-semibold text-foreground">
                   Registered Entity
                 </h4>
-                <p className="text-client mt-1 font-medium">DoctorDesk</p>
+                <p className="text-client mt-1 font-medium">Medicloud</p>
               </div>
               <div>
                 <h4 className="font-semibold text-foreground">
@@ -234,7 +234,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h4 className="font-semibold text-foreground">Support Email</h4>
-                <p className="text-client mt-1">doctordeskOfficial@gmail.com</p>
+                <p className="text-client mt-1">MedicloudOfficial@gmail.com</p>
               </div>
               <div className="md:col-span-2">
                 <h4 className="font-semibold text-foreground">
