@@ -81,7 +81,7 @@ export default function HelpCenterPage() {
               Still need help?
             </p>
             <Button asChild className="bg-client">
-              <a href="/contact">Contact Support</a>
+              <a href="/ContactUs">Contact Support</a>
             </Button>
           </div>
 
