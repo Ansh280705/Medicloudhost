@@ -98,8 +98,8 @@ export async function initiatePhonePePayment({ amount, credits, packageId }) {
       paymentFlow: {
         type: "PG_CHECKOUT",
         merchantUrls: {
-          redirectUrl: `https://unschismatic-deana-unambulant.ngrok-free.dev/api/payment/webhook?orderId=${merchantOrderId}`,
-          callbackUrl: "https://unschismatic-deana-unambulant.ngrok-free.dev/api/payment/webhook"
+          redirectUrl: `${process.env.NEXT_PUBLIC_REDIRECT_URL}?orderId=${merchantOrderId}`,
+          callbackUrl: process.env.NEXT_PUBLIC_REDIRECT_URL
         }
       }
     };
