@@ -53,10 +53,18 @@ export function ClinicsManager({ clinics: initialClinics }) {
 
   const handleAdd = async (e) => {
     e.preventDefault();
-    // Validate required fields
-    const required = ["name", "doctorName", "specialty", "phone", "address", "city", "state", "pincode", "timing"];
-    for (const field of required) {
+    // Core fields always required
+    const alwaysRequired = ["name", "doctorName", "specialty", "phone", "timing"];
+    for (const field of alwaysRequired) {
       if (!form[field].trim()) return toast.error(`Please fill in: ${field}`);
+    }
+
+    // Address fields required only if no GPS coordinates captured
+    if (!manualGeo) {
+      const addressRequired = ["address", "city", "state", "pincode"];
+      for (const field of addressRequired) {
+        if (!form[field].trim()) return toast.error(`Please fill in: ${field} (or use "Use My Location" button above)`);
+      }
     }
 
     setSaving(true);
@@ -164,7 +172,13 @@ export function ClinicsManager({ clinics: initialClinics }) {
             <Field label="Timing *" name="timing" value={form.timing} onChange={handleChange} placeholder="Mon–Sat, 9am–6pm" />
           </div>
 
-          <Field label="Full Address *" name="address" value={form.address} onChange={handleChange} placeholder="Plot No. 17, Above New Globas Medical..." />
+          <Field
+            label={manualGeo ? "Full Address (optional — GPS captured)" : "Full Address *"}
+            name="address"
+            value={form.address}
+            onChange={handleChange}
+            placeholder="Plot No. 17, Above New Globas Medical..."
+          />
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Field label="City *" name="city" value={form.city} onChange={handleChange} placeholder="Indore" />
@@ -182,7 +196,9 @@ export function ClinicsManager({ clinics: initialClinics }) {
               disabled={saving}
               className="flex items-center gap-2 px-6 py-2.5 bg-client text-white rounded-xl font-semibold text-sm hover:bg-client/90 transition-all disabled:opacity-60"
             >
-              {saving ? <><Loader2 className="w-4 h-4 animate-spin" /> Saving & Geocoding...</> : <><Plus className="w-4 h-4" /> Add Clinic</>}
+              {saving
+                ? <><Loader2 className="w-4 h-4 animate-spin" /> Saving...</>
+                : <><Plus className="w-4 h-4" /> Add Clinic</>}
             </button>
             <button type="button" onClick={() => { setShowForm(false); setForm(EMPTY_FORM); }} className="px-4 py-2.5 rounded-xl border border-border text-sm font-semibold hover:bg-muted transition-all">
               Cancel
