@@ -15,6 +15,7 @@ import {
   User,
   Wallet,
   UserIcon,
+  Bot,
 } from "lucide-react";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { useCredits } from "@/context/CreditsContext";
@@ -164,6 +165,16 @@ const DesktopHeader = ({ user, credits }) => (
           Sessions
         </Link>
       )}
+
+      {user?.role === "PATIENT" && (
+        <Link
+          href="/ai-doctor"
+          className="flex items-center gap-1.5 hover:text-teal-500 transition underline-center text-teal-600 font-extrabold"
+        >
+          <Bot className="w-4 h-4" />
+          AI Doctor
+        </Link>
+      )}
     </div>
 
     {/* ================= RIGHT : Actions ================= */}
@@ -301,6 +312,18 @@ const MobileMenu = ({ user }) => {
               >
                 <Calendar className="w-5 h-5" />
                 My Sessions
+              </Link>
+            </SheetClose>
+          )}
+
+          {user?.role === "PATIENT" && (
+            <SheetClose asChild>
+              <Link
+                href="/ai-doctor"
+                className="flex items-center gap-2 p-1 rounded-md active:bg-teal-100 text-teal-700 font-bold"
+              >
+                <Bot className="w-5 h-5" />
+                AI Doctor
               </Link>
             </SheetClose>
           )}
