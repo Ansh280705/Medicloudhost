@@ -42,23 +42,38 @@ export default function FindClinicPage() {
     detectLocation();
   }, []);
 
-  const detectLocation = () => {
+  const detectLocation = (highAccuracy = true) => {
     if (!("geolocation" in navigator)) {
       setLocationError("Location not supported in this browser.");
       return;
     }
     setLocationLoading(true);
     setLocationError(null);
+
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         setUserLocation({ lat: pos.coords.latitude, lng: pos.coords.longitude });
         setLocationLoading(false);
       },
-      () => {
-        setLocationError("Location access denied. Enable it to see distances.");
-        setLocationLoading(false);
+      (err) => {
+        // err.code: 1=PERMISSION_DENIED, 2=POSITION_UNAVAILABLE, 3=TIMEOUT
+        if (err.code === 1) {
+          // Actual permission denial — user must enable in browser settings
+          setLocationError("Permission denied. Click the 🔒 icon in your browser address bar → allow location.");
+          setLocationLoading(false);
+        } else if (highAccuracy) {
+          // Timeout or unavailable with high accuracy — retry with low accuracy
+          detectLocation(false);
+        } else {
+          setLocationError("Could not detect location. Try clicking 'Retry Location'.");
+          setLocationLoading(false);
+        }
       },
-      { enableHighAccuracy: true, timeout: 10000 }
+      {
+        enableHighAccuracy: highAccuracy,
+        timeout: highAccuracy ? 8000 : 15000,
+        maximumAge: 60000, // accept cached position up to 1 min old
+      }
     );
   };
 
@@ -132,10 +147,10 @@ export default function FindClinicPage() {
                   {locationError || "Location not detected"}
                 </div>
                 <button
-                  onClick={detectLocation}
+                  onClick={() => detectLocation()}
                   className="bg-white text-teal-700 text-sm font-bold px-4 py-2.5 rounded-2xl hover:bg-teal-50 transition-all"
                 >
-                  Allow Location
+                  Retry Location
                 </button>
               </div>
             )}
