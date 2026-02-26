@@ -1,0 +1,263 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ==========================
+// USER MODEL
+// ==========================
+model User {
+  id          String   @id @default(uuid())
+  clerkUserId String   @unique
+  email       String   @unique
+  name        String?
+  phone       String? // ✅ Added phone number for WhatsApp
+  imageUrl    String?
+  role        UserRole @default(UNASSIGNED)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  credits Int @default(0) // Patient credits — changed default to 0 for new users
+
+  // Doctor-specific fields
+  specialty          String?
+  experience         Int?
+  credentialUrl      String?
+  description        String?             @db.Text
+  verificationStatus VerificationStatus? @default(PENDING)
+  qualifications     String[] // ["MBBS", "MD (Cardiology)"]
+
+  // Relations
+  patientAppointments Appointment[]       @relation("PatientAppointments")
+  doctorAppointments  Appointment[]       @relation("DoctorAppointments")
+  availabilities      Availability[]
+  transactions        CreditTransaction[]
+  payouts             Payout[]
+  paymentRequests     PaymentRequest[]
+}
+
+// ==========================
+// ENUMS
+// ==========================
+enum UserRole {
+  UNASSIGNED
+  PATIENT
+  DOCTOR
+  ADMIN
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum SlotStatus {
+  AVAILABLE
+  BOOKED
+  BLOCKED
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+enum TransactionType {
+  CREDIT_PURCHASE
+  APPOINTMENT_DEDUCTION
+  ADMIN_ADJUSTMENT
+}
+
+enum PayoutStatus {
+  PROCESSING
+  PROCESSED
+}
+
+// ==========================
+// AVAILABILITY MODEL
+// ==========================
+model Availability {
+  id        String     @id @default(uuid())
+  doctorId  String
+  doctor    User       @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  startTime DateTime
+  endTime   DateTime
+  status    SlotStatus @default(AVAILABLE)
+
+  @@index([doctorId, startTime])
+}
+
+// ==========================
+// APPOINTMENT MODEL
+// ==========================
+model Appointment {
+  id                 String            @id @default(uuid())
+  patientId          String
+  patient            User              @relation("PatientAppointments", fields: [patientId], references: [id])
+  doctorId           String
+  doctor             User              @relation("DoctorAppointments", fields: [doctorId], references: [id])
+  startTime          DateTime
+  endTime            DateTime
+  status             AppointmentStatus @default(SCHEDULED)
+  notes              String?           @db.Text
+  patientDescription String?           @db.Text
+  prescription       Prescription?
+
+  patientName   String
+  patientPhone  String
+  patientAge    Int
+  patientGender String
+
+  // Video session fields
+  videoSessionId    String?
+  videoSessionToken String? // optional, useful for debugging
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, startTime])
+  @@index([doctorId, startTime])
+}
+
+// ==========================
+// CREDIT TRANSACTION
+// ==========================
+model CreditTransaction {
+  id            String          @id @default(uuid())
+  userId        String
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount        Int
+  type          TransactionType
+  packageId     String?
+  transactionId String?         @unique // Added unique transaction ID for tracking
+  createdAt     DateTime        @default(now())
+}
+
+// ==========================
+// PAYOUT MODEL
+// ==========================
+model Payout {
+  id                String       @id @default(uuid())
+  doctorId          String
+  doctor            User         @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  amount            Float
+  credits           Int
+  platformFee       Float
+  netAmount         Float
+  paypalEmail       String
+  // Optional payment reference for Razorpay (added to match expected column)
+  razorpayPaymentId String?
+  status            PayoutStatus @default(PROCESSING)
+  paymentId         String? // Added field for payment reference
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @default(now()) @updatedAt
+  processedAt       DateTime?
+  processedBy       String?
+
+  @@index([status, createdAt])
+  @@index([doctorId, status])
+}
+
+// ==========================
+// BLOG & CATEGORY MODELS
+// ==========================
+model Blog {
+  id          String    @id @default(uuid())
+  title       String
+  slug        String    @unique
+  excerpt     String?
+  content     String
+  imageUrl    String?
+  isPublished Boolean   @default(true)
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  tags        String[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  likes       Int       @default(0)
+}
+
+model Category {
+  id    String @id @default(uuid())
+  name  String @unique
+  blogs Blog[]
+}
+
+// ==========================
+// LAB MODEL
+// ==========================
+model Lab {
+  id        String   @id @default(uuid())
+  name      String
+  address   String
+  phone     String?
+  rating    Float    @default(0)
+  reviews   Int      @default(0)
+  timings   String
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Prescription {
+  id             String    @id @default(cuid())
+  appointmentId  String    @unique
+  doctorId       String
+  patientId      String
+  medicalHistory String?   @db.Text
+  diagnosis      String?
+  medicines      String
+  instructions   String?
+  followUpDate   DateTime?
+
+  createdAt DateTime @default(now())
+
+  appointment Appointment @relation(fields: [appointmentId], references: [id])
+}
+
+// ==========================
+// PAYMENT REQUEST MODEL
+// ==========================
+enum PaymentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model PaymentRequest {
+  id            String        @id @default(uuid())
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount        Float
+  credits       Int
+  screenshotUrl String
+  status        PaymentStatus @default(PENDING)
+  transactionId String?
+  paymentMethod String?
+  packageId     String?
+  isNotified    Boolean       @default(false)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  processedAt   DateTime?
+  processedBy   String?
+}
+
+// ==========================
+// NEWS & BANNERS MODEL
+// ==========================
+model News {
+  id        String   @id @default(uuid())
+  title     String
+  content   String?  @db.Text
+  imageUrl  String?
+  link      String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

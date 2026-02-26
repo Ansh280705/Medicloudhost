@@ -1,0 +1,442 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+
+
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-client:var(--client);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+ 
+  --background: #f9f2f2;
+  --foreground: oklch(0.145 0 0);
+  --client:oklch(67.79% 0.06025 188.928);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+/* 
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+.blink-cursor {
+  animation: blink 1s step-end infinite;
+} */
+
+/* Moving Neon Gradient */
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-move 3s ease infinite;
+}
+
+/* Pulse cursor */
+@keyframes cursor-pulse {
+  0% { transform: scaleX(1); opacity: 1; }
+  50% { transform: scaleX(0.4); opacity: 0.6; }
+  100% { transform: scaleX(1); opacity: 1; }
+}
+
+.cursor-pulse {
+  display: inline-block;
+  animation: cursor-pulse 0.7s ease-in-out infinite;
+  transform-origin: center;
+}
+@layer components {
+  .nav-shine-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.8),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: nav-shine 20s linear infinite;
+  }
+
+  @keyframes nav-shine {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+}
+/* Fade Up Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  );
+  transition: 0.2s;
+}
+
+.btn-shine:hover::before {
+  left: 100%;
+}
+.btn-glass-shimmer {
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.btn-glass-shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 120%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 100%
+  );
+  opacity: 0.7;
+  transform: skewX(-20deg);
+  animation: shimmer 2.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -150%; }
+  100% { left: 150%; }
+}
+.btn-glass-jump-hover {
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.btn-glass-jump-hover:hover {
+  animation: jumpHover 0.35s ease;
+}
+
+@keyframes jumpHover {
+  0%   { transform: translateY(0) scale(1); }
+  40%  { transform: translateY(-5px) scale(1.05); }
+  70%  { transform: translateY(0) scale(1); }
+  100% { transform: translateY(0); }
+}
+html {
+  scroll-behavior: smooth;
+}
+/* ================= ECG HEARTBEAT ================= */
+
+/* ECG line moving horizontally */
+@keyframes ecg-move {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.ecg-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ecg-line {
+  display: flex;
+  width: 200%;
+  animation: ecg-move 6s linear infinite;
+  opacity: 0.25;
+}
+
+.ecg-svg {
+  width: 50%;
+  height: 100%;
+}
+
+@layer utilities {
+  .underline-center {
+    position: relative;
+  }
+
+  .underline-center::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    height: 2px;
+    width: 0;
+    background-color: theme("colors.client");
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+  }
+
+  .underline-center:hover::after {
+    width: 100%;
+  }
+}
+/* dev css */
+@keyframes prism {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(-20px) translateX(10px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
+@keyframes prismSlow {
+  0% { transform: translateY(0) translateX(0); }
+  50% { transform: translateY(15px) translateX(-10px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
+.animate-prism {
+  animation: prism 18s ease-in-out infinite;
+}
+
+.animate-prismSlow {
+  animation: prismSlow 28s ease-in-out infinite;
+}
+
+
+/*  */
+
+.perspective {
+  perspective: 1400px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 35s linear infinite;
+}
+
+/* ================= ECG HEARTBEAT ================= */
+
+/* ===== ECG ANIMATION ===== */
+
+.ecg-wrapper {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;      /* vertical center */
+  justify-content: center;  /* horizontal center */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ecg-svg {
+  width: 150%;
+  height: 100%;
+  opacity: .35;
+}
+
+.ecg-line {
+
+  filter: drop-shadow(0 0 6px var(--client));
+  fill: none;
+  stroke: var(--client);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.25;
+
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: ecg-move 2.5s linear infinite;
+}
+
+@keyframes ecg-move {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -1000;
+    opacity: 0;
+  }
+}
+.swiper .swiper-pagination-bullet {
+  background-color: #6ba49f !important; /* inactive dot color */
+  
+ 
+}
+
+.swiper .swiper-pagination-bullet-active {
+  background-color: #2f5f50 !important; /* active dot color */
+}
+

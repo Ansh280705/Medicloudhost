@@ -1,0 +1,25 @@
+{
+    "name": "DoctorDesk",
+    "short_name": "DoctorDesk",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#6ba49f",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "/final-logo.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/final-logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
