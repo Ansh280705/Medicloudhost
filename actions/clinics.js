@@ -6,20 +6,31 @@ import { revalidatePath } from "next/cache";
 
 // ─── Geocode address → lat/lng using OpenStreetMap (free, no API key) ───
 export async function geocodeAddress(address, city, state, pincode) {
-  try {
-    const query = encodeURIComponent(`${address}, ${city}, ${state}, ${pincode}, India`);
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`,
-      { headers: { "User-Agent": "MediCloud-App/1.0" } }
-    );
-    const data = await res.json();
-    if (data.length > 0) {
-      return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+  const headers = {
+    "User-Agent": "MediCloud-ClinicFinder/1.0 (medicloudofficial@gmail.com)",
+    "Accept-Language": "en",
+  };
+
+  // Try progressively simpler queries until one works
+  const queries = [
+    `${address}, ${city}, ${state}, ${pincode}, India`,   // Full address
+    `${city}, ${pincode}, ${state}, India`,                // City + pincode
+    `${city}, ${state}, India`,                            // City + state only
+  ];
+
+  for (const q of queries) {
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=1&countrycodes=in`;
+      const res = await fetch(url, { headers });
+      const data = await res.json();
+      if (data.length > 0) {
+        return { lat: parseFloat(data[0].lat), lng: parseFloat(data[0].lon) };
+      }
+    } catch {
+      // try next query
     }
-    return null;
-  } catch {
-    return null;
   }
+  return null;
 }
 
 // ─── Add clinic (Admin only) ───
@@ -31,13 +42,14 @@ export async function addClinic(formData) {
   if (user?.role !== "ADMIN") return { success: false, error: "Admins only" };
 
   try {
-    // Auto-geocode the address
-    const geo = await geocodeAddress(
-      formData.address,
-      formData.city,
-      formData.state,
-      formData.pincode
-    );
+    // 1. Use manual GPS coordinates if admin used "Use My Location" button
+    // 2. Otherwise fall back to Nominatim geocoding from address
+    let geo = null;
+    if (formData.manualLat && formData.manualLng) {
+      geo = { lat: parseFloat(formData.manualLat), lng: parseFloat(formData.manualLng) };
+    } else {
+      geo = await geocodeAddress(formData.address, formData.city, formData.state, formData.pincode);
+    }
 
     const clinic = await db.offlineClinic.create({
       data: {

@@ -4,7 +4,7 @@ import { useState } from "react";
 import {
   Building2, Plus, Trash2, ToggleLeft, ToggleRight,
   Phone, MapPin, Clock, User, Stethoscope, Loader2,
-  CheckCircle2, XCircle, ChevronDown, ChevronUp
+  CheckCircle2, XCircle, ChevronDown, ChevronUp, Navigation
 } from "lucide-react";
 import { addClinic, deleteClinic, toggleClinicStatus } from "@/actions/clinics";
 import { toast } from "sonner";
@@ -28,8 +28,28 @@ export function ClinicsManager({ clinics: initialClinics }) {
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
   const [togglingId, setTogglingId] = useState(null);
+  const [manualGeo, setManualGeo] = useState(null); // { lat, lng } from browser
+  const [geoLocating, setGeoLocating] = useState(false);
 
   const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+
+  // Use browser geolocation for exact clinic coordinates
+  const useMyLocation = () => {
+    if (!("geolocation" in navigator)) return toast.error("Location not supported in this browser");
+    setGeoLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setManualGeo({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setGeoLocating(false);
+        toast.success(`📍 Location captured: ${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`);
+      },
+      () => {
+        setGeoLocating(false);
+        toast.error("Could not get location. Enable location in browser settings.");
+      },
+      { enableHighAccuracy: false, timeout: 10000 }
+    );
+  };
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -40,17 +60,18 @@ export function ClinicsManager({ clinics: initialClinics }) {
     }
 
     setSaving(true);
-    const res = await addClinic(form);
+    const res = await addClinic({ ...form, manualLat: manualGeo?.lat, manualLng: manualGeo?.lng });
     setSaving(false);
 
     if (res.success) {
       toast.success(
         res.geocoded
-          ? "✅ Clinic added & location auto-detected!"
-          : "✅ Clinic added. Location could not be auto-detected — you may update coordinates manually."
+          ? "✅ Clinic added & location detected!"
+          : "✅ Clinic added. Location could not be detected — distances won't show for this clinic."
       );
       setClinics((prev) => [res.clinic, ...prev]);
       setForm(EMPTY_FORM);
+      setManualGeo(null);
       setShowForm(false);
     } else {
       toast.error(res.error || "Failed to add clinic");
@@ -106,6 +127,27 @@ export function ClinicsManager({ clinics: initialClinics }) {
       {showForm && (
         <form onSubmit={handleAdd} className="bg-card border border-border rounded-2xl p-6 space-y-4 animate-in slide-in-from-top-2 duration-300">
           <h3 className="font-bold text-base mb-2">Register New Clinic</h3>
+
+          {/* Use My Location button */}
+          <div className="flex items-center gap-3 p-3 bg-teal-50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800 rounded-xl">
+            <div className="flex-1">
+              <p className="text-xs font-semibold text-teal-800 dark:text-teal-300">
+                {manualGeo
+                  ? `✅ Location captured: ${manualGeo.lat.toFixed(5)}, ${manualGeo.lng.toFixed(5)}`
+                  : "📍 If you're at the clinic right now, capture exact coordinates instantly:"}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={useMyLocation}
+              disabled={geoLocating}
+              className="flex items-center gap-1.5 px-3 py-2 bg-teal-600 text-white text-xs font-bold rounded-lg hover:bg-teal-700 transition-all disabled:opacity-60 shrink-0"
+            >
+              {geoLocating
+                ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Getting...</>
+                : <><Navigation className="w-3.5 h-3.5" /> Use My Location</>}
+            </button>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="Clinic Name *" name="name" value={form.name} onChange={handleChange} placeholder="e.g. Yashoda Dental Care" />
             <Field label="Doctor Name *" name="doctorName" value={form.doctorName} onChange={handleChange} placeholder="e.g. Dr. Ankit Chourasiya" />
