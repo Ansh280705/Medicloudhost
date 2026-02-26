@@ -135,32 +135,6 @@ export default function Footer() {
               Online session scheduling made simple, secure, and accessible for
               everyone.
             </p>
-            <div className="mt-6 space-y-3 text-xs">
-              <div className="flex items-center gap-2">
-                <Building2 className="h-4 w-4 text-client shrink-0" />
-                <p className="font-semibold text-foreground">Yashoda Dental Care</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4 text-client shrink-0" />
-                <p>Dr. Ankit Chourasiya</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-client shrink-0" />
-                <p>+91 81094-24356</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-client shrink-0" />
-                <p>Medicloudofficial@gmail.com</p>
-              </div>
-              <div className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 text-client shrink-0 mt-0.5" />
-                <p>
-                  First Floor, Plot No. 17, Above New Globas Medical, Opposite
-                  Satish Kirana, Gori Nagar, New Gouri Nagar, Sukhliya, Indore,
-                  Madhya Pradesh – 452010
-                </p>
-              </div>
-            </div>
           </div>
 
           {/* Product */}
@@ -291,14 +265,6 @@ export default function Footer() {
           </div>
           <div className="container mx-auto px-6 lg:px-20 py-4 text-xs text-muted-foreground text-center border-t border-border/60 flex flex-col items-center gap-2">
             <span>© {new Date().getFullYear()} MediCloud</span>
-            <p>
-              <strong>Company Name:</strong> MediCloud | <strong>Clinic:</strong> Yashoda Dental Care | <strong>Owner:</strong>{" "}
-              Dr. Ankit Chourasiya | <strong>Business Type:</strong> Individual /
-              Proprietorship | <strong>Service Type:</strong> SaaS / IT Services
-            </p>
-            <p>
-              <strong>Support:</strong> MedicloudOfficial@gmail.com
-            </p>
             <p className="mt-2">
               <strong>Refund Policy:</strong> If we approve your refund, we will process and credit it to your bank account within 3-5 days.
             </p>
