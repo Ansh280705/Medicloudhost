@@ -13,14 +13,26 @@ function PaymentSuccessContent() {
     const { reloadCredits } = useCredits();
     const searchParams = useSearchParams();
     const router = useRouter();
-    const orderId = searchParams.get("orderId");
-    const [status, setStatus] = useState("processing"); // processing, success, failed
+    const orderId = searchParams.get("orderId") || searchParams.get("merchantOrderId") || searchParams.get("merchantTransactionId");
+    const paymentParam = searchParams.get("payment");
+    const reason = searchParams.get("reason");
+    const [status, setStatus] = useState(
+        paymentParam === "success" ? "success" :
+            (paymentParam === "failed" || paymentParam === "error") ? "failed" :
+                "processing"
+    );
 
     useEffect(() => {
-        if (!orderId) return;
+        // If already successful from URL, just reload credits once
+        if (status === "success") {
+            reloadCredits();
+            return;
+        }
+
+        if (!orderId || status === "failed") return;
 
         let pollCount = 0;
-        const maxPolls = 10;
+        const maxPolls = 15; // Increased polls
 
         const pollStatus = async () => {
             console.log(`🔍 Polling status for ${orderId} (${pollCount + 1}/${maxPolls})...`);
@@ -31,11 +43,11 @@ function PaymentSuccessContent() {
                     console.log("✅ Payment COMPLETED!");
                     setStatus("success");
                     reloadCredits();
-                    return true; // Stop polling
-                } else if (result.state === "FAILED") {
-                    console.log("❌ Payment FAILED!");
+                    return true;
+                } else if (result.state === "FAILED" || result.state === "ABORTED" || result.state === "CANCELLED") {
+                    console.log("❌ Payment FAILED/ABORTED!");
                     setStatus("failed");
-                    return true; // Stop polling
+                    return true;
                 }
             } catch (err) {
                 console.error("Polling error:", err);
@@ -49,17 +61,17 @@ function PaymentSuccessContent() {
             if (stop || pollCount >= maxPolls) {
                 clearInterval(interval);
                 if (pollCount >= maxPolls && status === "processing") {
-                    // One last reload just in case
-                    reloadCredits();
+                    console.log("⌛ Polling timed out. Setting status to unknown/failed.");
+                    // If it's still processing after max polls, we'll stop the loader
+                    // but maybe not set it to "failed" yet, just keep it as is or show a "timed out" state.
+                    // For now, let's keep it as processing but the UI will show it stopped.
                 }
             }
         }, 3000);
 
-        // Initial check
         pollStatus();
-
         return () => clearInterval(interval);
-    }, [orderId, reloadCredits]);
+    }, [orderId, reloadCredits, status]);
 
     return (
         <div className="flex items-center justify-center min-h-[70vh] p-4">
@@ -79,13 +91,18 @@ function PaymentSuccessContent() {
                     <CardTitle className="text-2xl font-bold">
                         {status === 'success' ? "Payment Successful!" : status === 'failed' ? "Payment Failed" : "Verifying Payment..."}
                     </CardTitle>
+                    {orderId && (
+                        <p className="text-xs font-mono text-muted-foreground mt-1">
+                            ID: {orderId}
+                        </p>
+                    )}
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <p className="text-muted-foreground">
                         {status === 'success'
                             ? "Great news! Your credits have been added to your account."
                             : status === 'failed'
-                                ? "Unfortunately, we couldn't confirm your payment. If money was deducted, it will be refunded."
+                                ? (reason || "Unfortunately, we couldn't confirm your payment. If money was deducted, it will be refunded.")
                                 : "Thank you for your purchase. We are currently verifying your payment with PhonePe."
                         }
                     </p>

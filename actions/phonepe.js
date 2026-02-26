@@ -98,7 +98,8 @@ export async function initiatePhonePePayment({ amount, credits, packageId }) {
       paymentFlow: {
         type: "PG_CHECKOUT",
         merchantUrls: {
-          redirectUrl: `${process.env.NEXT_PUBLIC_REDIRECT_URL}?orderId=${merchantOrderId}`,
+          // Use mId for our tracking to avoid conflict with PhonePe's 'orderId'
+          redirectUrl: `${process.env.NEXT_PUBLIC_REDIRECT_URL}?mId=${merchantOrderId}`,
           callbackUrl: process.env.NEXT_PUBLIC_REDIRECT_URL
         }
       }
@@ -128,24 +129,25 @@ export async function initiatePhonePePayment({ amount, credits, packageId }) {
       return { success: false, error: errorMsg };
     }
 
-    // Store in DB
+    // Store in DB - We store PhonePe's orderId as the primary transactionId
+    // because that's what the Status API requires.
     await db.paymentRequest.create({
       data: {
         userId: user.id,
         amount,
         credits,
-        transactionId: merchantOrderId,
+        transactionId: result.orderId, // Store PhonePe's OMO... ID
         paymentMethod: "PhonePe",
         packageId,
         status: "PENDING",
-        screenshotUrl: "PhonePe Auto", // Mandatory field in schema
+        screenshotUrl: merchantOrderId, // Save our ORD_... ID here just in case
       },
     });
 
     return {
       success: true,
       phonePeOrderId: result.orderId,
-      redirectUrl: result.redirectUrl, // V2 returns top-level URLs
+      redirectUrl: result.redirectUrl,
       merchantOrderId,
     };
   } catch (error) {
@@ -160,7 +162,7 @@ export async function verifyPhonePePayment(merchantOrderId) {
   try {
     const token = await getAccessToken();
 
-    const res = await fetch(`${STATUS_URL}/${merchantOrderId}/status`, {
+    const res = await fetch(`${STATUS_URL}/${merchantOrderId}/status?details=false`, {
       method: "GET",
       headers: {
         // ⚠️ V2 requires O-Bearer prefix
@@ -181,11 +183,18 @@ export async function verifyPhonePePayment(merchantOrderId) {
     console.log(`ℹ️  Payment State for ${merchantOrderId}: ${state}`);
 
     if (state === "COMPLETED") {
+      // Look for the record using either the ID we sent (merchantOrderId) 
+      // or the PhonePe ID (result.orderId which we sometimes store in screenshotUrl)
       const payment = await db.paymentRequest.findFirst({
-        where: { transactionId: merchantOrderId },
+        where: {
+          OR: [
+            { transactionId: merchantOrderId },
+            { screenshotUrl: merchantOrderId }
+          ]
+        },
       });
 
-      console.log(`ℹ️  Payment Record found:`, payment ? "YES" : "NO");
+      console.log(`ℹ️  Payment Record found for ${merchantOrderId}:`, payment ? "YES" : "NO");
 
       if (payment?.status === "PENDING") {
         await db.$transaction(async (tx) => {
@@ -213,6 +222,26 @@ export async function verifyPhonePePayment(merchantOrderId) {
           });
         });
         console.log(`✅ Credits updated successfully for ${merchantOrderId}`);
+      }
+    } else if (state === "FAILED" || state === "ABORTED" || state === "CANCELLED") {
+      const payment = await db.paymentRequest.findFirst({
+        where: {
+          OR: [
+            { transactionId: merchantOrderId },
+            { screenshotUrl: merchantOrderId }
+          ]
+        },
+      });
+
+      if (payment?.status === "PENDING") {
+        await db.paymentRequest.update({
+          where: { id: payment.id },
+          data: { 
+            status: "REJECTED",
+            processedAt: new Date()
+          },
+        });
+        console.log(`❌ Payment marked as REJECTED for ${merchantOrderId}`);
       }
     }
 
