@@ -152,25 +152,6 @@ erDiagram
 
 ---
 
-## � Interactive Demo
-
-<details>
-<summary><b>▶️ AI Doctor Consultation Flow (Click to expand)</b></summary>
-<br/>
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Ansh280705/Medicloudhost/refs/heads/main/public/main_img1.png" alt="AI Feature" width="100%" />
-  <p><i>Multilingual streaming inference via Groq Cloud over Serverless Edge.</i></p>
-</div>
-</details>
-
-<details>
-<summary><b>▶️ Geo-spatial Nearby Clinic Discovery (Click to expand)</b></summary>
-<br/>
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Ansh280705/Medicloudhost/refs/heads/main/public/main_img2.png" alt="Geo Feature" width="100%" />
-  <p><i>Real-time browser geolocation calculating closest proximities natively without map load overhead.</i></p>
-</div>
-</details>
 
 ---
 
