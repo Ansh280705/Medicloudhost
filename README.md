@@ -301,5 +301,5 @@ As an open-source health-tech initiative, we welcome high-quality PRs.
 ---
 
 <div align="center">
-  <p>Designed and engineered for scale.</p>
+  
 </div>
