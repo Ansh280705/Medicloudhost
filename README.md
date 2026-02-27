@@ -270,14 +270,6 @@ gantt
 
 ---
 
-## 🤝 Contributing
-As an open-source health-tech initiative, we welcome high-quality PRs. 
-
-1. **Fork** the repository.
-2. **Branch** off `main` (`git checkout -b feature/amazing-feature`).
-3. **Commit** changes cleanly (`git commit -m 'feat: Add amazing feature'`).
-4. **Push** to your fork.
-5. Open a **Pull Request**.
 
 ---
 
