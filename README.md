@@ -1,6 +1,6 @@
 <div align="center">
   <br />
-  <img src="https://raw.githubusercontent.com/Ansh280705/Medicloudhost/main/public/logo.svg" alt="MediCloud Logo" width="80" height="auto" />
+  
   <br />
   <h1><strong>MediCloud</strong></h1>
   <p>
@@ -8,7 +8,7 @@
   </p>
 
   <p>
-    <a href="https://medicloud.vercel.app"><img src="https://img.shields.io/badge/Live_Project-medicloud.vercel.app-14b8a6?style=for-the-badge&logo=vercel" alt="Live Release" /></a>
+    <a href="https://medicloudhost-coral.vercel.app/"><img src="https://img.shields.io/badge/Live_Project-medicloudhost--coral.vercel.app-14b8a6?style=for-the-badge&logo=vercel" alt="Live Release" /></a>
     <img src="https://img.shields.io/github/license/Ansh280705/Medicloudhost?style=for-the-badge&color=8b5cf6" alt="License" />
     <img src="https://img.shields.io/github/stars/Ansh280705/Medicloudhost?style=for-the-badge&color=eab308" alt="Stars" />
     <br />
@@ -31,11 +31,6 @@
 </div>
 
 <br />
-
-<!-- ⚡ Replace this with an actual recorded animated GIF of your app dashboard/flow -->
-<div align="center">
-  <img src="https://via.placeholder.com/1000x500/0f172a/14b8a6?text=Animated+Hero+Preview+GIF+of+MediCloud+UI/UX" alt="MediCloud Product Demo Animation" width="100%" />
-</div>
 
 <br />
 
@@ -163,7 +158,7 @@ erDiagram
 <summary><b>▶️ AI Doctor Consultation Flow (Click to expand)</b></summary>
 <br/>
 <div align="center">
-  <img src="https://via.placeholder.com/800x450/0f172a/f97316?text=Voice+AI+Doctor+GIF" alt="AI Feature" />
+  <img src="https://raw.githubusercontent.com/Ansh280705/Medicloudhost/refs/heads/main/public/main_img1.png" alt="AI Feature" width="100%" />
   <p><i>Multilingual streaming inference via Groq Cloud over Serverless Edge.</i></p>
 </div>
 </details>
@@ -172,7 +167,7 @@ erDiagram
 <summary><b>▶️ Geo-spatial Nearby Clinic Discovery (Click to expand)</b></summary>
 <br/>
 <div align="center">
-  <img src="https://via.placeholder.com/800x450/0f172a/14b8a6?text=Nearby+Clinics+Haversine+Algorithm+GIF" alt="Geo Feature" />
+  <img src="https://raw.githubusercontent.com/Ansh280705/Medicloudhost/refs/heads/main/public/main_img2.png" alt="Geo Feature" width="100%" />
   <p><i>Real-time browser geolocation calculating closest proximities natively without map load overhead.</i></p>
 </div>
 </details>
@@ -236,7 +231,12 @@ Create a `.env` file at the root. Use the exact formats below:
 | `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk Frontend Auth Key | `pk_test_...` |
 | `CLERK_SECRET_KEY` | Clerk Backend Auth Key | `sk_test_...` |
 | `GROQ_API_KEY` | AI Inference LLM token | `gsk_...` |
-| `RAZORPAY_KEY_ID` | Payment gateway ID | `rzp_test_...` |
+| `NEXT_PUBLIC_VONAGE_APPLICATION_ID` | Vonage App ID (Video/Comms) | `5638541a-3307...` |
+| `VONAGE_PRIVATE_KEY` | Vonage Backend Auth Key | `-----BEGIN PRI...` |
+| `PHONEPE_MERCHANT_ID` | PhonePe Payment PG | `M237W6QSZFRUE` |
+| `PHONEPE_CLIENT_ID` | PhonePe App Config ID | `SU260212...` |
+| `PHONEPE_CLIENT_SECRET` | PhonePe Auth Secret | `d3b...` |
+| `NEXT_PUBLIC_REDIRECT_URL` | Payment Webhook Routing | `https://your-live-domain...` |
 
 ### 3. Database Hydration
 ```bash
@@ -302,5 +302,4 @@ As an open-source health-tech initiative, we welcome high-quality PRs.
 
 <div align="center">
   <p>Designed and engineered for scale.</p>
-  <img src="https://img.shields.io/badge/Made_with-%E2%9D%A4-e11d48?style=for-the-badge" alt="Made with Love" />
 </div>
